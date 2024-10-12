@@ -1,4 +1,4 @@
-/*
+/*`1
  * STM32F411xx.h
  *
  *  Created on: Oct 11, 2024
@@ -15,6 +15,10 @@
  */
 
 #define __IO			volatile
+#define CLK_EN			1
+#define CLK_DI			0
+#define HIGH			1
+#define LOW				0
 
 /*
  * Base Addresses of Flash, ROM and SRAM Memories
@@ -153,12 +157,37 @@ typedef struct{
 /*
  * This Macros is defines RCC as a RCC Base Memory address which is pinter casted to type RCC_RegDef_t.
  */
-#define RCC			(RCC_RegDef_t *)RCC_BASE;
+#define RCC			((RCC_RegDef_t *)RCC_BASE)
 
 /*
  * Macros to enable clock access to GPIO Peripherals
  */
 #define GPIOA_PCLK_EN()		(RCC->AHB1ENR |= (1<<0))
+#define GPIOB_PCLK_EN()		(RCC->AHB1ENR |= (1<<1))
+#define GPIOC_PCLK_EN()		(RCC->AHB1ENR |= (1<<2))
+#define GPIOD_PCLK_EN()		(RCC->AHB1ENR |= (1<<3))
+#define GPIOE_PCLK_EN()		(RCC->AHB1ENR |= (1<<4))
+#define GPIOH_PCLK_EN()		(RCC->AHB1ENR |= (1<<7))
+
+/*
+ * Macros to disable clock access to peripheral
+ */
+#define GPIOA_PCLK_DI()		(RCC->AHB1ENR &= ~(1<<0))
+#define GPIOB_PCLK_DI()		(RCC->AHB1ENR &= ~(1<<1))
+#define GPIOC_PCLK_DI()		(RCC->AHB1ENR &= ~(1<<2))
+#define GPIOD_PCLK_DI()		(RCC->AHB1ENR &= ~(1<<3))
+#define GPIOE_PCLK_DI()		(RCC->AHB1ENR &= ~(1<<4))
+#define GPIOH_PCLK_DI()		(RCC->AHB1ENR &= ~(1<<7))
+
+/*
+ * Reset Macros for GPIO Peripherals
+ */
+#define GPIOA_REG_RESET()		do{ (RCC->AHB1RSTR |= (1<<0));  (RCC->AHB1RSTR &= ~(1<<0)); }while(0)	/*!< First set bits then clear bits! >*/
+#define GPIOB_REG_RESET()		do{ (RCC->AHB1RSTR |= (1<<1));	(RCC->AHB1RSTR &= ~(1<<1)); }while(0)	/*!< First set bits then clear bits! >*/
+#define GPIOC_REG_RESET()		do{ (RCC->AHB1RSTR |= (1<<2));	(RCC->AHB1RSTR &= ~(1<<2)); }while(0)	/*!< First set bits then clear bits! >*/
+#define GPIOD_REG_RESET()		do{ (RCC->AHB1RSTR |= (1<<3));	(RCC->AHB1RSTR &= ~(1<<3)); }while(0)	/*!< First set bits then clear bits! >*/
+#define GPIOE_REG_RESET()		do{ (RCC->AHB1RSTR |= (1<<4));	(RCC->AHB1RSTR &= ~(1<<4)); }while(0)	/*!< First set bits then clear bits! >*/
+#define GPIOH_REG_RESET()		do{ (RCC->AHB1RSTR |= (1<<7));	(RCC->AHB1RSTR &= ~(1<<7)); }while(0)	/*!< First set bits then clear bits! >*/
 
 
 /*---------------------------------------------------------------------------------------------------------------------------------------*/
@@ -183,7 +212,7 @@ typedef struct{
 	__IO uint32_t LCKR;			/*<! GPIO port configuration lock register 			ADDRESS OFFSET: 0x1C	*/
 	__IO uint32_t AFR[2];		/*<! AF[0]: GPIO alternate function low register	ADDRESS OFFSET: 0x20	*/
 								/*<! AF[1]: GPIO alternate function high register	ADDRESS OFFSET: 0x24	*/
-}GPIO_RegDef_t;
+}GPIOx_RegDef_t;
 
 /*
  * GPIO Peripheral Specific Macros
@@ -195,12 +224,12 @@ typedef struct{
  * The macro GPIOA is a pointer to the memory address of GPIO port A, cast to the GPIO_RegDef_t type, allowing the code to access and
  * modify GPIO registers through a simple interface like GPIOA->MODER.
  */
-#define GPIOA		((GPIO_RegDef_t *)GPIOA_BASE)	/*!< GPIOA Peripheral Base Address is Type-casted to a pointer of type GPIO_RegDef_t >*/
-#define GPIOB		((GPIO_RegDef_t *)GPIOB_BASE)
-#define GPIOC		((GPIO_RegDef_t *)GPIOC_BASE)
-#define GPIOD		((GPIO_RegDef_t *)GPIOD_BASE)
-#define GPIOE		((GPIO_RegDef_t *)GPIOE_BASE)
-#define GPIOH		((GPIO_RegDef_t *)GPIOH_BASE)
+#define GPIOA		((GPIOx_RegDef_t *)GPIOA_BASE)	/*!< GPIOA Peripheral Base Address is Type-casted to a pointer of type GPIO_RegDef_t >*/
+#define GPIOB		((GPIOx_RegDef_t *)GPIOB_BASE)
+#define GPIOC		((GPIOx_RegDef_t *)GPIOC_BASE)
+#define GPIOD		((GPIOx_RegDef_t *)GPIOD_BASE)
+#define GPIOE		((GPIOx_RegDef_t *)GPIOE_BASE)
+#define GPIOH		((GPIOx_RegDef_t *)GPIOH_BASE)
 
 /*----------------------------------------------------------------------------------------------------------------------------*/
 

@@ -1,0 +1,9 @@
+../Drivers/Src/GPIO_Driver.c:17:6:GPIOx_PClkControl	16	static
+../Drivers/Src/GPIO_Driver.c:68:6:GPIOx_Init	24	static
+../Drivers/Src/GPIO_Driver.c:122:6:GPIOx_DeInit	16	static
+../Drivers/Src/GPIO_Driver.c:149:9:GPIO_ReadFromInputPin	24	static
+../Drivers/Src/GPIO_Driver.c:156:10:GPIO_ReadFromInputPort	24	static
+../Drivers/Src/GPIO_Driver.c:166:6:GPIO_WriteToOutputPin	24	static
+../Drivers/Src/GPIO_Driver.c:179:6:GPIO_WriteToOutputPort	16	static
+../Drivers/Src/GPIO_Driver.c:188:6:GPIO_ToggleOutputPin	16	static
+../Drivers/Src/GPIO_Driver.c:192:6:GPIO_ToggleOutputPort	16	static
