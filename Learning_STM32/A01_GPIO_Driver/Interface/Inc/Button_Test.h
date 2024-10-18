@@ -10,6 +10,7 @@
 
 #include "STM32F411xx.h"
 #include "GPIO_Driver.h"
+#include <string.h>
 
 /*
  * Target Board - STM32F411RE
@@ -17,23 +18,6 @@
  * Using Endstop limit switch (externally), to try out read APIs and Interrupts APIs
  */
 
-GPIOx_Handle_t PushButton_Handle;
-GPIOx_Handle_t EndstopLSW_Handle;
-
-
-//Push Button Configuration - B1 - User Button - PC13
-GPIOx_PinConfig_t PushButton_Config = {
-		.GPIOx_PinNumber = GPIO_PIN_NUMBER_13,
-		.GPIOx_PinMode = GPIO_MODE_INPUT,
-		.GPIOx_PinPUPDControl = GPIO_PUPD_PULL_UP
-};
-
-//Endstop Limit Switch Configuration - PA12
-GPIOx_PinConfig_t Endstop_LimitSwitch_Config = {
-		.GPIOx_PinNumber = GPIO_PIN_NUMBER_12,
-		.GPIOx_PinMode = GPIO_MODE_INPUT,
-		.GPIOx_PinPUPDControl = GPIO_PUPD_PULL_DOWN
-};
 
 
 

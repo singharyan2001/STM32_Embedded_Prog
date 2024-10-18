@@ -19,7 +19,49 @@
 #define CLK_DI			0
 #define HIGH			1
 #define LOW				0
+#define ENABLE			1
+#define DISABLE			0
 
+
+/********************************************* Processor Specific Details *********************************************/
+/*
+ * ARM Cortex Mx Processor NVIC Registers
+ */
+/* NVIC ISERx Register Addresses - Interrupt Set-Enable Register */
+#define NVIC_ISER0		((__IO uint32_t*)0xE000E100)
+#define NVIC_ISER1		((__IO uint32_t*)0xE000E104)
+#define NVIC_ISER2		((__IO uint32_t*)0xE000E108)
+#define NVIC_ISER3		((__IO uint32_t*)0xE000E10C)
+#define NVIC_ISER4		((__IO uint32_t*)0xE000E110)
+#define NVIC_ISER5		((__IO uint32_t*)0xE000E114)
+#define NVIC_ISER6		((__IO uint32_t*)0xE000E118)
+#define NVIC_ISER7		((__IO uint32_t*)0xE000E11C)
+
+/* NVIC ICERx Register Addresses - Interrupt Clear-Enable Register */
+#define NVIC_ICER0		((__IO uint32_t*)0xE000E180)
+#define NVIC_ICER1		((__IO uint32_t*)0xE000E184)
+#define NVIC_ICER2		((__IO uint32_t*)0xE000E188)
+#define NVIC_ICER3		((__IO uint32_t*)0xE000E18C)
+#define NVIC_ICER4		((__IO uint32_t*)0xE000E190)
+#define NVIC_ICER5		((__IO uint32_t*)0xE000E194)
+#define NVIC_ICER6		((__IO uint32_t*)0xE000E198)
+#define NVIC_ICER7		((__IO uint32_t*)0xE000E19C)
+
+
+/* NVIC IPRx Register Addresses - Interrupt Priority Register */
+/*
+ * Note - In ARM Cortex Mx Processor - there 60 IPR Registers i.e. IPR0 - IPR59
+ *		  Each IPRx register is splitted into 4 sections, each of 8 bits.
+ *		  Each section is for a IRQ Number to configure its priority
+ */
+#define NVIC_IPRx_BASE	((__IO uint32_t*)0xE000E400)
+
+#define NO_PR_BITS_IMPLEMENTED	4
+
+
+/**********************************************************************************************************************/
+
+/********************************************** Peripherals specific Details ******************************************/
 /*
  * Base Addresses of Flash, ROM and SRAM Memories
  */
@@ -113,6 +155,38 @@
 #define SPI5_BASE					(APB2_BASE + 0x5000)	/*!< SPI 5 Peripheral Base Address >*/
 #define I2S5_BASE					(SPI5_BASE)				/*!< I2S5 Peripheral Base Address >*/
 
+/*
+ * IRQ Number Definitions
+ */
+
+#define IRQ_NO_EXTI0		6
+#define IRQ_NO_EXTI1		7
+#define IRQ_NO_EXTI2		8
+#define IRQ_NO_EXTI3		9
+#define IRQ_NO_EXTI4		10
+#define IRQ_NO_EXTI9_5		23
+#define IRQ_NO_EXTI15_10	40
+
+
+/*
+ * IRQ Priority Number
+ */
+#define NVIC_IRQ_PRI_0		0
+#define NVIC_IRQ_PRI_1		1
+#define NVIC_IRQ_PRI_2		2
+#define NVIC_IRQ_PRI_3		3
+#define NVIC_IRQ_PRI_4		4
+#define NVIC_IRQ_PRI_5		5
+#define NVIC_IRQ_PRI_6		6
+#define NVIC_IRQ_PRI_7		7
+#define NVIC_IRQ_PRI_8		8
+#define NVIC_IRQ_PRI_9		9
+#define NVIC_IRQ_PRI_10		10
+#define NVIC_IRQ_PRI_11		11
+#define NVIC_IRQ_PRI_12		12
+#define NVIC_IRQ_PRI_13		13
+#define NVIC_IRQ_PRI_14		14
+#define NVIC_IRQ_PRI_15		15
 
 /******************************************************************************************************************************/
 /*
@@ -189,6 +263,12 @@ typedef struct{
 #define GPIOE_REG_RESET()		do{ (RCC->AHB1RSTR |= (1<<4));	(RCC->AHB1RSTR &= ~(1<<4)); }while(0)	/*!< First set bits then clear bits! >*/
 #define GPIOH_REG_RESET()		do{ (RCC->AHB1RSTR |= (1<<7));	(RCC->AHB1RSTR &= ~(1<<7)); }while(0)	/*!< First set bits then clear bits! >*/
 
+/*
+ * Macros to enable clock access to SYSCFG Peripheral
+ */
+#define SYSCFG_PCLK_EN()	(RCC->APB2ENR |= (1<<14))
+#define SYSCFG_PCLK_DI()	(RCC->APB2ENR &= ~(1<<14))
+
 
 /*---------------------------------------------------------------------------------------------------------------------------------------*/
 /*
@@ -231,7 +311,52 @@ typedef struct{
 #define GPIOE		((GPIOx_RegDef_t *)GPIOE_BASE)
 #define GPIOH		((GPIOx_RegDef_t *)GPIOH_BASE)
 
-/*----------------------------------------------------------------------------------------------------------------------------*/
+
+/*--------------------------------------------------------------------------------------------------------------------------------------*/
+/*
+ * Peripheral register definition structure for EXTI Controller
+ */
+
+typedef struct{
+	__IO uint32_t EXTI_IMR;		/*!< EXTI Interrupt Mask Register >*/
+	__IO uint32_t EXTI_EMR;		/*!< EXTI Event Mask Register >*/
+	__IO uint32_t EXTI_RTSR;	/*!< EXTI Rising Trigger Selection Register >*/
+	__IO uint32_t EXTI_FTSR;	/*!< EXTI Falling Trigger Selection Register >*/
+	__IO uint32_t EXTI_SWIER;	/*!< EXTI Software Interrupt Event Register >*/
+	__IO uint32_t EXTI_PR;		/*!< EXTI Pending Register >*/
+}EXTI_RegDef_t;
+
+
+#define EXTI	((EXTI_RegDef_t *)EXTI_BASE)
+
+
+/*--------------------------------------------------------------------------------------------------------------------------------------*/
+/*
+ * Peripheral register definition structure for SYSCFG Peripheral
+ */
+
+typedef struct{
+	__IO uint32_t MEMRMP;
+	__IO uint32_t PMC;
+	__IO uint32_t EXTICR[4];
+	__IO uint32_t RESERVED2[2];
+	__IO uint32_t CMPCR;
+}SYSCFG_RegDef_t;
+
+#define SYSCFG	((SYSCFG_RegDef_t *)SYSCFG_BASE)
+
+#define GPIO_BASEADDR_TO_CODE(x)   ((x==GPIOA) ? 0 :\
+									(x==GPIOB) ? 1 :\
+									(x==GPIOC) ? 2 :\
+									(x==GPIOD) ? 3 :\
+									(x==GPIOE) ? 4 :\
+									(x==GPIOH) ? 7 :0)
+
+/*--------------------------------------------------------------------------------------------------------------------------------------*/
+/*
+ * Peripheral register definition structure for --- Peripheral
+ */
+
 
 
 

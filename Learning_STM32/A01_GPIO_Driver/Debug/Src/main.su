@@ -1,7 +1,9 @@
-../Src/main.c:36:5:main	8	static
-../Src/main.c:86:6:delay	24	static
-../Src/main.c:91:6:are_ButtonPressed_Test	8	static
-../Src/main.c:106:6:LED_YGRB_Test	8	static
-../Src/main.c:119:6:PORTC_LED_Test	8	static
-../Src/main.c:126:6:ONBOARD_LED_Test	16	static
-../Src/main.c:132:6:ONBOARD_LED_Toggle	8	static
+../Src/main.c:46:5:main	8	static
+../Src/main.c:133:6:EXTI0_IRQHandler	8	static
+../Src/main.c:140:6:EXTI15_10_IRQHandler	8	static
+../Src/main.c:148:6:delay	24	static
+../Src/main.c:153:6:are_ButtonPressed_Test	8	static
+../Src/main.c:168:6:LED_YGRB_Test	8	static
+../Src/main.c:181:6:PORTC_LED_Test	8	static
+../Src/main.c:188:6:ONBOARD_LED_Test	16	static
+../Src/main.c:194:6:ONBOARD_LED_Toggle	8	static

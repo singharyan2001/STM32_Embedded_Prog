@@ -19,22 +19,22 @@
  * @GPIO_PIN_NUMBERS
  * GPIO Pin Numbers Macros
  */
-#define GPIO_PIN_NUMBER_0		0
-#define GPIO_PIN_NUMBER_1		1
-#define GPIO_PIN_NUMBER_2		2
-#define GPIO_PIN_NUMBER_3		3
-#define GPIO_PIN_NUMBER_4		4
-#define GPIO_PIN_NUMBER_5		5
-#define GPIO_PIN_NUMBER_6		6
-#define GPIO_PIN_NUMBER_7		7
-#define GPIO_PIN_NUMBER_8		8
-#define GPIO_PIN_NUMBER_9		9
-#define GPIO_PIN_NUMBER_10		10
-#define GPIO_PIN_NUMBER_11		11
-#define GPIO_PIN_NUMBER_12		12
-#define GPIO_PIN_NUMBER_13		13
-#define GPIO_PIN_NUMBER_14		14
-#define GPIO_PIN_NUMBER_15		15
+#define GPIO_PIN_0		0
+#define GPIO_PIN_1		1
+#define GPIO_PIN_2		2
+#define GPIO_PIN_3		3
+#define GPIO_PIN_4		4
+#define GPIO_PIN_5		5
+#define GPIO_PIN_6		6
+#define GPIO_PIN_7		7
+#define GPIO_PIN_8		8
+#define GPIO_PIN_9		9
+#define GPIO_PIN_10		10
+#define GPIO_PIN_11		11
+#define GPIO_PIN_12		12
+#define GPIO_PIN_13		13
+#define GPIO_PIN_14		14
+#define GPIO_PIN_15		15
 
 /*
  * @GPIO_MODES
@@ -44,6 +44,9 @@
 #define GPIO_MODE_OUTPUT		1
 #define GPIO_MODE_ALTERNATE		2
 #define GPIO_MODE_ANALOG		3
+#define GPIO_MODE_INT_FALLING	4
+#define GPIO_MODE_INT_RISING	5
+#define GPIO_MODE_INT_BOTH		6
 
 /*
  * @GPIO_OUTPUT_TYPES
@@ -137,7 +140,8 @@ void GPIO_ToggleOutputPort(GPIOx_RegDef_t *pGPIOx_Base, uint16_t mask);
 /*
  * GPIO Peripheral - IRQ Configuration and Handler APIs
  */
-void GPIO_IRQConfig(void);
-void GPIO_IRQHandler(void);
+void GPIO_IRQ_INT_Config(uint8_t IRQNumber, uint8_t EN_DI);
+void GPIO_IRQ_Priority_Config(uint8_t IRQNumber, uint32_t IRQPriority);
+void GPIO_IRQHandling(uint8_t PinNumber);
 
 #endif /* INC_GPIO_DRIVER_H_ */
