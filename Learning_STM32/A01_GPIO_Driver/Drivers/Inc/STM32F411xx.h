@@ -59,6 +59,27 @@
 #define NO_PR_BITS_IMPLEMENTED	4
 
 
+/*
+ * ARM Cortex Mx Processor SYSTICK Peripheral Registers
+ */
+
+#define SYSTICK_BASE	((__IO uint32_t*)0xE000E010)
+
+#define SYSTICK_CSR		((__IO uint32_t*)0xE000E010)		//SYSTICK Control and Status Register -> STCSR
+#define SYSTICK_RVR		((__IO uint32_t*)0xE000E014)		//SYSTICK Reload Value Register -> STRVR
+#define SYSTICK_CVR		((__IO uint32_t*)0xE000E018)		//SYSTICK Current Value Register -> STCVR
+#define SYSTICK_CALIB	((__IO uint32_t*)0xE000E01C)		//SYSTICK Calibration Value Register -> STCALIB
+
+typedef struct{
+	__IO uint32_t CSR;
+	__IO uint32_t RVR;
+	__IO uint32_t CVR;
+	__IO uint32_t CALIB;
+}SYSTICK_RegDef_t;
+
+#define SYSTICK			((SYSTICK_RegDef_t *)SYSTICK_BASE)
+
+
 /**********************************************************************************************************************/
 
 /********************************************** Peripherals specific Details ******************************************/
