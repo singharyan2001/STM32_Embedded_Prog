@@ -1,4 +1,5 @@
 "./Drivers/Src/GPIO_Driver.o"
+"./Drivers/Src/GPTimer_Driver.o"
 "./Drivers/Src/SYSTICK_Driver.o"
 "./Src/main.o"
 "./Src/syscalls.o"

@@ -1,0 +1,12 @@
+../Drivers/Src/GPTimer_Driver.c:28:6:TIMx_ClockEnable	5
+../Drivers/Src/GPTimer_Driver.c:61:6:TIMx_SetPrescaler	1
+../Drivers/Src/GPTimer_Driver.c:65:10:TIMx_ComputePrescaler	1
+../Drivers/Src/GPTimer_Driver.c:69:6:TIMx_SetPeriod	1
+../Drivers/Src/GPTimer_Driver.c:73:6:TIMx_ConfigMode	2
+../Drivers/Src/GPTimer_Driver.c:81:6:TIMx_EnableInterrupt	1
+../Drivers/Src/GPTimer_Driver.c:86:6:TIMx_DisableInterrupt	1
+../Drivers/Src/GPTimer_Driver.c:92:6:TIMx_Init	2
+../Drivers/Src/GPTimer_Driver.c:115:6:TIMx_Start	1
+../Drivers/Src/GPTimer_Driver.c:120:6:TIMx_Stop	1
+../Drivers/Src/GPTimer_Driver.c:125:6:TIMx_Delay_Blocking_ms	2
+../Drivers/Src/GPTimer_Driver.c:155:6:TIMx_IRQHandling	2

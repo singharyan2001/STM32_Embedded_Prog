@@ -6,14 +6,17 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../Drivers/Src/GPIO_Driver.c \
+../Drivers/Src/GPTimer_Driver.c \
 ../Drivers/Src/SYSTICK_Driver.c 
 
 OBJS += \
 ./Drivers/Src/GPIO_Driver.o \
+./Drivers/Src/GPTimer_Driver.o \
 ./Drivers/Src/SYSTICK_Driver.o 
 
 C_DEPS += \
 ./Drivers/Src/GPIO_Driver.d \
+./Drivers/Src/GPTimer_Driver.d \
 ./Drivers/Src/SYSTICK_Driver.d 
 
 
@@ -24,7 +27,7 @@ Drivers/Src/%.o Drivers/Src/%.su Drivers/Src/%.cyclo: ../Drivers/Src/%.c Drivers
 clean: clean-Drivers-2f-Src
 
 clean-Drivers-2f-Src:
-	-$(RM) ./Drivers/Src/GPIO_Driver.cyclo ./Drivers/Src/GPIO_Driver.d ./Drivers/Src/GPIO_Driver.o ./Drivers/Src/GPIO_Driver.su ./Drivers/Src/SYSTICK_Driver.cyclo ./Drivers/Src/SYSTICK_Driver.d ./Drivers/Src/SYSTICK_Driver.o ./Drivers/Src/SYSTICK_Driver.su
+	-$(RM) ./Drivers/Src/GPIO_Driver.cyclo ./Drivers/Src/GPIO_Driver.d ./Drivers/Src/GPIO_Driver.o ./Drivers/Src/GPIO_Driver.su ./Drivers/Src/GPTimer_Driver.cyclo ./Drivers/Src/GPTimer_Driver.d ./Drivers/Src/GPTimer_Driver.o ./Drivers/Src/GPTimer_Driver.su ./Drivers/Src/SYSTICK_Driver.cyclo ./Drivers/Src/SYSTICK_Driver.d ./Drivers/Src/SYSTICK_Driver.o ./Drivers/Src/SYSTICK_Driver.su
 
 .PHONY: clean-Drivers-2f-Src
 
