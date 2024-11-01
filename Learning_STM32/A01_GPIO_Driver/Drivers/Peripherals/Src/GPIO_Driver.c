@@ -248,7 +248,7 @@ void GPIO_IRQ_INT_Config(uint8_t IRQNumber, uint8_t EN_DI){
 	if(EN_DI == ENABLE){
 		if(IRQNumber <= 31){
 			//To Program ISER0 Register
-			*NVIC_ICER0 |= (1 << IRQNumber);
+			*NVIC_ISER0 |= (1 << IRQNumber);
 		}
 		else if(IRQNumber > 31 && IRQNumber < 64){
 			//To Program ISER1 Register

@@ -115,9 +115,10 @@ int main(void)
 	TIM2_Config.Prescaler = TIMx_ComputePrescaler(TIM2, SYSTEM_FREQUENCY, TIMER_FREQUENCY);
 	TIM2_Config.Mode = TIM_MODE_UP_COUNTER;
 	TIM2_Config.Interrupt = TIM_INT_ENABLE;
+	TIM2_Config.IRQ_No = IRQ_NO_TIM2;
 	TIM2_Config.delay = 250;
 
-	TIMx_Init(TIM2, &TIM2_Config);
+	//TIMx_Init(TIM2, &TIM2_Config);
 
 	//Provide Clock Access to the GPIO Peripherals
 	GPIOx_PClkControl(GPIOA, CLK_EN);
@@ -140,12 +141,11 @@ int main(void)
 //	GPIO_IRQ_INT_Config(IRQ_NO_EXTI15_10, ENABLE);
 //	GPIO_IRQ_Priority_Config(IRQ_NO_EXTI15_10, NVIC_IRQ_PRI_15);	//Priority no - 15
 
-	TIMx_Start(TIM2);
+	//TIMx_Start(TIM2);
+	TIMx_Delay_ms_Init(TIM2);
 
 	while(1){
-		//are_ButtonPressed_Test();
-//		LED_YGRB_Test();
-//		SysTick_DelayMs(250);
+		ONBOARD_LED_Test();
 	}
 }
 
@@ -210,8 +210,11 @@ void delay(uint32_t value){
 
 void ONBOARD_LED_Test(void){
 	GPIO_WriteToOutputPin(GPIOA, ONBOARD_LED.GPIO_PinConfig.GPIOx_PinNumber, HIGH);
-	SysTick_DelayMs(750);
+	//SysTick_DelayMs(750);
+	TIMx_Delay_ms(TIM2, 250);
+	//TIMx_Delay_Blocking_ms(TIM2, 1000);
 	GPIO_WriteToOutputPin(GPIOA, ONBOARD_LED.GPIO_PinConfig.GPIOx_PinNumber, LOW);
+	TIMx_Delay_ms(TIM2, 250);
 }
 
 void ONBOARD_LED_Toggle(void){

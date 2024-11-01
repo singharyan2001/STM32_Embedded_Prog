@@ -7,9 +7,12 @@
 
 #include "STM32F411xx.h"
 #include "GPTimer_Driver.h"
+#include "NVIC.h"
+
 
 #define sys_freq_default	16000000
 #define tim_freq_1khz_ms	1000		//1ms
+#define TIMER_FREQUENCY_1MHZ	1000000
 
 //APB1 Bus interface
 #define TIM2_EN			(1<<0)		//APB1
@@ -67,6 +70,7 @@ uint32_t TIMx_ComputePrescaler(TIM_RegDef_t *TIMx, uint32_t sys_freq, uint32_t t
 }
 
 void TIMx_SetPeriod(TIM_RegDef_t *TIMx, uint32_t period){
+	//Set ARR Register
 	TIMx->ARR = (period-1);
 }
 
@@ -78,14 +82,14 @@ void TIMx_ConfigMode(TIM_RegDef_t *TIMx, uint8_t Mode){
 	}
 }
 
-void TIMx_EnableInterrupt(TIM_RegDef_t *TIMx){
+void TIMx_EnableInterrupt(TIM_RegDef_t *TIMx, uint8_t IRQ_no){
 	TIMx->DIER |= (1 << TIMx_UIE);
-	*NVIC_ISER0 |= (1 << IRQ_NO_TIM2); //for now enable interrupts on timer 2
+	NVIC_EnableIRQ(IRQ_no);
 }
 
-void TIMx_DisableInterrupt(TIM_RegDef_t *TIMx){
+void TIMx_DisableInterrupt(TIM_RegDef_t *TIMx, uint8_t IRQ_no){
 	TIMx->DIER &= ~(1 << TIMx_UIE);
-	*NVIC_ICER0 |= (1 << IRQ_NO_TIM2);	//for now disable interrupts on timer 2
+	NVIC_DisableIRQ(IRQ_no);
 }
 
 
@@ -104,9 +108,9 @@ void TIMx_Init(TIM_RegDef_t *TIMx, TIMx_Config_t *TIMx_Config){
 
 	//Enable or Disable Interrupt on Timer peripheral
 	if(TIMx_Config->Interrupt == TIM_INT_ENABLE){
-		TIMx_EnableInterrupt(TIMx);					//Enables the Timer Interrupt
+		TIMx_EnableInterrupt(TIMx, TIMx_Config->IRQ_No);		//Enables the Timer Interrupt
 	} else{
-		TIMx_DisableInterrupt(TIMx);				//Disables the Timer Interrupt
+		TIMx_DisableInterrupt(TIMx, TIMx_Config->IRQ_No);		//Disables the Timer Interrupt
 	}
 }
 
@@ -122,32 +126,33 @@ void TIMx_Stop(TIM_RegDef_t *TIMx){
 	TIMx->CR1 &= ~(TIMx_CEN);
 }
 
-void TIMx_Delay_Blocking_ms(TIM_RegDef_t *TIMx, uint32_t delay_ms){
-	//Enable clock access
-	TIMx_ClockEnable(TIMx);
+// One-time configuration for TIM2 to prepare for delays
+void TIMx_Delay_ms_Init(TIM_RegDef_t *TIMx) {
+    // Enable clock access
+    TIMx_ClockEnable(TIMx);
 
-	//Set prescaler register
-	uint32_t psc_value = TIMx_ComputePrescaler(TIMx, sys_freq_default, tim_freq_1khz_ms);
-	TIMx_SetPrescaler(TIMx, psc_value);
+    // Set prescaler register
+    TIMx_SetPrescaler(TIMx, 15);
 
-	//Set Auto reload register
-	TIMx_SetPeriod(TIMx, delay_ms);
+    //Set Auto reload register
+    TIMx_SetPeriod(TIMx, 1000);
 
-	//Clear counter
-	TIMx->CNT = 0;
+    // Set Counter Mode (Up counter)
+    TIMx_ConfigMode(TIMx, TIM_MODE_UP_COUNTER);
+}
 
+// Blocking delay in milliseconds
+void TIMx_Delay_ms(TIM_RegDef_t *TIMx, uint32_t delay_ms) {
 	//Start timer
 	TIMx_Start(TIMx);
-
-	//Check for update flag
-	while(!(TIMx->SR & TIMx_SR_UIF)){
-		//wait till UIF bit is set in TIM SR
-	}
-	//Clear flag
-	TIMx->SR &= ~(1 << 0);
-
-	//Stop timer
-	TIMx_Stop(TIMx);
+    for(volatile uint32_t i = 0; i < delay_ms; i++){
+    	//Check for update flag
+    	while(!(TIMx->SR & TIMx_SR_UIF)){}
+    	//Clear flag
+    	TIMx->SR &= ~TIMx_SR_UIF;
+    }
+    //Stop timer
+    TIMx_Stop(TIMx);
 }
 
 
@@ -155,7 +160,7 @@ void TIMx_Delay_Blocking_ms(TIM_RegDef_t *TIMx, uint32_t delay_ms){
 void TIMx_IRQHandling(TIM_RegDef_t *TIMx){
 	// Clear the update interrupt flag
 	if(TIMx->SR & TIMx_SR_UIF){
-		TIMx->SR &= ~(1 << 0);
+		TIMx->SR &= ~TIMx_SR_UIF;
 	}
 }
 

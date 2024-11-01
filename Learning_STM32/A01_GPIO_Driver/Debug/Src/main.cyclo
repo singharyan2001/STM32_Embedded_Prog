@@ -2,4 +2,4 @@
 ../Src/main.c:152:6:TIM2_IRQHandler	1
 ../Src/main.c:171:6:delay	2
 ../Src/main.c:211:6:ONBOARD_LED_Test	1
-../Src/main.c:217:6:ONBOARD_LED_Toggle	1
+../Src/main.c:220:6:ONBOARD_LED_Toggle	1

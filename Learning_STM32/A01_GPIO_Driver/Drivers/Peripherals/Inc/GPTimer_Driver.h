@@ -28,6 +28,7 @@ typedef struct {
     uint32_t delay;         		// Auto-reload value
     uint8_t Mode;         			// Timer mode (e.g., up-counter, down-counter)
     uint8_t Interrupt;    			// Enable/Disable interrupt
+    uint8_t IRQ_No;
 }TIMx_Config_t;
 
 
@@ -44,17 +45,18 @@ void TIMx_ConfigMode(TIM_RegDef_t *TIMx, uint8_t Mode);
 
 //Initialization API
 void TIMx_Init(TIM_RegDef_t *TIMx, TIMx_Config_t *TIMx_Config);
+void TIMx_Delay_ms_Init(TIM_RegDef_t *TIMx);
 
 //General application APIs
 void TIMx_Start(TIM_RegDef_t *TIMx);
 void TIMx_Stop(TIM_RegDef_t *TIMx);
 
-void TIMx_Delay_Blocking_ms(TIM_RegDef_t *TIMx, uint32_t delay_ms);
-
+void TIMx_Delay_ms(TIM_RegDef_t *TIMx, uint32_t delay_ms);
+//TIMx_Delay_Blocking_1ms
 
 //Interrupt Handling APIs
-void TIMx_EnableInterrupt(TIM_RegDef_t *TIMx);
-void TIMx_DisableInterrupt(TIM_RegDef_t *TIMx);
+void TIMx_EnableInterrupt(TIM_RegDef_t *TIMx, uint8_t IRQ_no);
+void TIMx_DisableInterrupt(TIM_RegDef_t *TIMx, uint8_t IRQ_no);
 void TIMx_IRQHandling(TIM_RegDef_t *TIMx);
 
 #endif /* INC_GPTIMER_DRIVER_H_ */
