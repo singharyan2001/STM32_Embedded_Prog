@@ -127,7 +127,7 @@ Discarded input sections
                 0x00000000       0x20 ./Drivers/Peripherals/Src/SYSTICK_Driver.o
  .debug_rnglists
                 0x00000000       0x13 ./Drivers/Peripherals/Src/SYSTICK_Driver.o
- .debug_macro   0x00000000       0x8b ./Drivers/Peripherals/Src/SYSTICK_Driver.o
+ .debug_macro   0x00000000       0x81 ./Drivers/Peripherals/Src/SYSTICK_Driver.o
  .debug_macro   0x00000000      0xac0 ./Drivers/Peripherals/Src/SYSTICK_Driver.o
  .debug_macro   0x00000000       0x22 ./Drivers/Peripherals/Src/SYSTICK_Driver.o
  .debug_macro   0x00000000       0x8e ./Drivers/Peripherals/Src/SYSTICK_Driver.o
@@ -136,8 +136,8 @@ Discarded input sections
  .debug_macro   0x00000000       0x6a ./Drivers/Peripherals/Src/SYSTICK_Driver.o
  .debug_macro   0x00000000      0x1df ./Drivers/Peripherals/Src/SYSTICK_Driver.o
  .debug_macro   0x00000000      0x3cf ./Drivers/Peripherals/Src/SYSTICK_Driver.o
- .debug_macro   0x00000000       0x16 ./Drivers/Peripherals/Src/SYSTICK_Driver.o
- .debug_line    0x00000000      0x50e ./Drivers/Peripherals/Src/SYSTICK_Driver.o
+ .debug_macro   0x00000000       0x1c ./Drivers/Peripherals/Src/SYSTICK_Driver.o
+ .debug_line    0x00000000      0x581 ./Drivers/Peripherals/Src/SYSTICK_Driver.o
  .debug_str     0x00000000     0x50f0 ./Drivers/Peripherals/Src/SYSTICK_Driver.o
  .comment       0x00000000       0x44 ./Drivers/Peripherals/Src/SYSTICK_Driver.o
  .debug_frame   0x00000000       0x38 ./Drivers/Peripherals/Src/SYSTICK_Driver.o
@@ -175,7 +175,7 @@ Discarded input sections
  .debug_macro   0x00000000       0x6a ./Drivers/Processor/Src/NVIC.o
  .debug_macro   0x00000000      0x1df ./Drivers/Processor/Src/NVIC.o
  .debug_macro   0x00000000      0x3cf ./Drivers/Processor/Src/NVIC.o
- .debug_line    0x00000000      0x60f ./Drivers/Processor/Src/NVIC.o
+ .debug_line    0x00000000      0x60a ./Drivers/Processor/Src/NVIC.o
  .debug_str     0x00000000     0x50d1 ./Drivers/Processor/Src/NVIC.o
  .comment       0x00000000       0x44 ./Drivers/Processor/Src/NVIC.o
  .debug_frame   0x00000000       0x88 ./Drivers/Processor/Src/NVIC.o
@@ -218,7 +218,9 @@ Discarded input sections
  .debug_macro   0x00000000      0x103 ./Src/main.o
  .debug_macro   0x00000000       0x6a ./Src/main.o
  .debug_macro   0x00000000      0x1df ./Src/main.o
- .debug_macro   0x00000000      0x124 ./Src/main.o
+ .debug_macro   0x00000000      0x12a ./Src/main.o
+ .debug_macro   0x00000000       0x1c ./Src/main.o
+ .debug_macro   0x00000000       0x22 ./Src/main.o
  .group         0x00000000        0xc ./Src/syscalls.o
  .group         0x00000000        0xc ./Src/syscalls.o
  .group         0x00000000        0xc ./Src/syscalls.o
@@ -1006,48 +1008,46 @@ LOAD C:/ST/STM32CubeIDE_1.10.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  .debug_rnglists
                 0x000000e0       0x19 ./Startup/startup_stm32f411retx.o
 
-.debug_macro    0x00000000     0x253d
- .debug_macro   0x00000000       0x85 ./Drivers/Peripherals/Src/GPIO_Driver.o
- .debug_macro   0x00000085      0xac0 ./Drivers/Peripherals/Src/GPIO_Driver.o
- .debug_macro   0x00000b45       0x22 ./Drivers/Peripherals/Src/GPIO_Driver.o
- .debug_macro   0x00000b67       0x8e ./Drivers/Peripherals/Src/GPIO_Driver.o
- .debug_macro   0x00000bf5       0x51 ./Drivers/Peripherals/Src/GPIO_Driver.o
- .debug_macro   0x00000c46      0x103 ./Drivers/Peripherals/Src/GPIO_Driver.o
- .debug_macro   0x00000d49       0x6a ./Drivers/Peripherals/Src/GPIO_Driver.o
- .debug_macro   0x00000db3      0x1df ./Drivers/Peripherals/Src/GPIO_Driver.o
- .debug_macro   0x00000f92      0x3cf ./Drivers/Peripherals/Src/GPIO_Driver.o
- .debug_macro   0x00001361      0x124 ./Drivers/Peripherals/Src/GPIO_Driver.o
- .debug_macro   0x00001485       0xcb ./Drivers/Peripherals/Src/GPTimer_Driver.o
- .debug_macro   0x00001550       0x1c ./Drivers/Peripherals/Src/GPTimer_Driver.o
- .debug_macro   0x0000156c      0x16a ./Src/main.o
- .debug_macro   0x000016d6       0x5b ./Src/main.o
- .debug_macro   0x00001731       0x2a ./Src/main.o
- .debug_macro   0x0000175b       0x94 ./Src/main.o
- .debug_macro   0x000017ef       0x43 ./Src/main.o
- .debug_macro   0x00001832       0x34 ./Src/main.o
- .debug_macro   0x00001866      0x189 ./Src/main.o
- .debug_macro   0x000019ef       0x16 ./Src/main.o
- .debug_macro   0x00001a05       0x43 ./Src/main.o
- .debug_macro   0x00001a48       0x57 ./Src/main.o
- .debug_macro   0x00001a9f       0x34 ./Src/main.o
- .debug_macro   0x00001ad3       0x10 ./Src/main.o
- .debug_macro   0x00001ae3       0x58 ./Src/main.o
- .debug_macro   0x00001b3b       0x8e ./Src/main.o
- .debug_macro   0x00001bc9       0x1c ./Src/main.o
- .debug_macro   0x00001be5      0x177 ./Src/main.o
- .debug_macro   0x00001d5c      0x369 ./Src/main.o
- .debug_macro   0x000020c5       0x10 ./Src/main.o
- .debug_macro   0x000020d5       0x35 ./Src/main.o
- .debug_macro   0x0000210a       0x20 ./Src/main.o
- .debug_macro   0x0000212a      0x3d5 ./Src/main.o
- .debug_macro   0x000024ff       0x1c ./Src/main.o
- .debug_macro   0x0000251b       0x22 ./Src/main.o
+.debug_macro    0x00000000     0x24ed
+ .debug_macro   0x00000000       0x7b ./Drivers/Peripherals/Src/GPIO_Driver.o
+ .debug_macro   0x0000007b      0xac0 ./Drivers/Peripherals/Src/GPIO_Driver.o
+ .debug_macro   0x00000b3b       0x22 ./Drivers/Peripherals/Src/GPIO_Driver.o
+ .debug_macro   0x00000b5d       0x8e ./Drivers/Peripherals/Src/GPIO_Driver.o
+ .debug_macro   0x00000beb       0x51 ./Drivers/Peripherals/Src/GPIO_Driver.o
+ .debug_macro   0x00000c3c      0x103 ./Drivers/Peripherals/Src/GPIO_Driver.o
+ .debug_macro   0x00000d3f       0x6a ./Drivers/Peripherals/Src/GPIO_Driver.o
+ .debug_macro   0x00000da9      0x1df ./Drivers/Peripherals/Src/GPIO_Driver.o
+ .debug_macro   0x00000f88      0x3cf ./Drivers/Peripherals/Src/GPIO_Driver.o
+ .debug_macro   0x00001357      0x12a ./Drivers/Peripherals/Src/GPIO_Driver.o
+ .debug_macro   0x00001481       0xc1 ./Drivers/Peripherals/Src/GPTimer_Driver.o
+ .debug_macro   0x00001542       0x22 ./Drivers/Peripherals/Src/GPTimer_Driver.o
+ .debug_macro   0x00001564      0x160 ./Src/main.o
+ .debug_macro   0x000016c4       0x5b ./Src/main.o
+ .debug_macro   0x0000171f       0x2a ./Src/main.o
+ .debug_macro   0x00001749       0x94 ./Src/main.o
+ .debug_macro   0x000017dd       0x43 ./Src/main.o
+ .debug_macro   0x00001820       0x34 ./Src/main.o
+ .debug_macro   0x00001854      0x189 ./Src/main.o
+ .debug_macro   0x000019dd       0x16 ./Src/main.o
+ .debug_macro   0x000019f3       0x43 ./Src/main.o
+ .debug_macro   0x00001a36       0x57 ./Src/main.o
+ .debug_macro   0x00001a8d       0x34 ./Src/main.o
+ .debug_macro   0x00001ac1       0x10 ./Src/main.o
+ .debug_macro   0x00001ad1       0x58 ./Src/main.o
+ .debug_macro   0x00001b29       0x8e ./Src/main.o
+ .debug_macro   0x00001bb7       0x1c ./Src/main.o
+ .debug_macro   0x00001bd3      0x177 ./Src/main.o
+ .debug_macro   0x00001d4a      0x369 ./Src/main.o
+ .debug_macro   0x000020b3       0x10 ./Src/main.o
+ .debug_macro   0x000020c3       0x35 ./Src/main.o
+ .debug_macro   0x000020f8       0x20 ./Src/main.o
+ .debug_macro   0x00002118      0x3d5 ./Src/main.o
 
-.debug_line     0x00000000     0x1897
- .debug_line    0x00000000      0xa0d ./Drivers/Peripherals/Src/GPIO_Driver.o
- .debug_line    0x00000a0d      0x725 ./Drivers/Peripherals/Src/GPTimer_Driver.o
- .debug_line    0x00001132      0x6ea ./Src/main.o
- .debug_line    0x0000181c       0x7b ./Startup/startup_stm32f411retx.o
+.debug_line     0x00000000     0x19f0
+ .debug_line    0x00000000      0xa80 ./Drivers/Peripherals/Src/GPIO_Driver.o
+ .debug_line    0x00000a80      0x798 ./Drivers/Peripherals/Src/GPTimer_Driver.o
+ .debug_line    0x00001218      0x75d ./Src/main.o
+ .debug_line    0x00001975       0x7b ./Startup/startup_stm32f411retx.o
 
 .debug_str      0x00000000     0x8e5f
  .debug_str     0x00000000     0x55c2 ./Drivers/Peripherals/Src/GPIO_Driver.o
