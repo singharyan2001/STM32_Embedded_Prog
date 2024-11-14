@@ -1,0 +1,13 @@
+../Drivers/Peripherals/Src/GPTimer_Driver.c:31:6:TIMx_ClockEnable	16	static
+../Drivers/Peripherals/Src/GPTimer_Driver.c:64:6:TIMx_SetPrescaler	16	static
+../Drivers/Peripherals/Src/GPTimer_Driver.c:68:10:TIMx_ComputePrescaler	24	static
+../Drivers/Peripherals/Src/GPTimer_Driver.c:72:6:TIMx_SetPeriod	16	static
+../Drivers/Peripherals/Src/GPTimer_Driver.c:77:6:TIMx_ConfigMode	16	static
+../Drivers/Peripherals/Src/GPTimer_Driver.c:85:6:TIMx_EnableInterrupt	16	static
+../Drivers/Peripherals/Src/GPTimer_Driver.c:90:6:TIMx_DisableInterrupt	16	static
+../Drivers/Peripherals/Src/GPTimer_Driver.c:96:6:TIMx_Init	16	static
+../Drivers/Peripherals/Src/GPTimer_Driver.c:119:6:TIMx_Start	16	static
+../Drivers/Peripherals/Src/GPTimer_Driver.c:124:6:TIMx_Stop	16	static
+../Drivers/Peripherals/Src/GPTimer_Driver.c:130:6:TIMx_Delay_ms_Init	16	static
+../Drivers/Peripherals/Src/GPTimer_Driver.c:145:6:TIMx_Delay_ms	24	static
+../Drivers/Peripherals/Src/GPTimer_Driver.c:160:6:TIMx_IRQHandling	16	static

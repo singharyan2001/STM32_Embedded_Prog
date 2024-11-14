@@ -17,19 +17,76 @@
  */
 
 #include <stdint.h>
+#include <string.h>
 #include "STM32F411xx.h"
 #include "GPIO_Driver.h"
 #include "GPTimer_Driver.h"
-#include "SYSTICK_Driver.h"
-#include "NVIC.h"
+//#include "SYSTICK_Driver.h"
+//#include "NVIC.h"
 
 
 #if !defined(__SOFT_FP__) && defined(__ARM_FP)
-  #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+	#warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
 #endif
+
+//Test function
+void GPIO_Init(GPIOx_Handle_t *pGPIOxHandle);
 
 int main(void)
 {
+	GPIOx_Handle_t PA5;
+
+	GPIOx_PinConfig_t internal_ledconfig = {
+		.GPIOx_PinNumber = 5,
+		.GPIOx_PinMode = GPIO_MODE_OUTPUT,
+		.GPIOx_PinSpeed = GPIO_SPEED_LOW,
+		.GPIOx_PinOPType = GPIO_OUTPUT_PUSH_PULL,
+		.GPIOx_PinPUPDControl = GPIO_PUPD_NA,
+		.GPIOx_PinAltFunMode = 0
+	};
+
+	//Set GPIO pin handler configurations
+	PA5.pGPIOx_Base = GPIOA;
+	memcpy(&PA5.GPIO_PinConfig, &internal_ledconfig, sizeof(GPIOx_PinConfig_t));
+
+	//Initial GPIO pin
+	GPIO_Init(&PA5);
+
+	//Initialize a timer peripheral for delays
+	TIMx_Delay_ms_Init(TIM2);
+
     /* Loop forever */
-	for(;;);
+	for(;;){
+		//Test Set & Reset APIs
+		GPIO_SetPin(GPIOA, GPIO_PIN_5);
+		TIMx_Delay_ms(TIM2, 500);
+		GPIO_ResetPin(GPIOA, GPIO_PIN_5);
+		TIMx_Delay_ms(TIM2, 500);
+	}
+}
+
+//Test function to test new APIs created
+void GPIO_Init(GPIOx_Handle_t *pGPIOxHandle){
+	//Test
+	uint8_t pin = pGPIOxHandle->GPIO_PinConfig.GPIOx_PinNumber;
+	uint8_t mode = pGPIOxHandle->GPIO_PinConfig.GPIOx_PinMode;
+	uint8_t speed = pGPIOxHandle->GPIO_PinConfig.GPIOx_PinSpeed;
+	uint8_t OPType = pGPIOxHandle->GPIO_PinConfig.GPIOx_PinOPType;
+	uint8_t PUPDConfig = pGPIOxHandle->GPIO_PinConfig.GPIOx_PinPUPDControl;
+	// uint8_t Altfun_Mode = pGPIOxHandle->GPIO_PinConfig.GPIOx_PinAltFunMode;
+
+	//Enable Clock access for the peripheral
+	GPIOx_PClkControl(GPIOA, CLK_EN);
+
+	//1. Set GPIO pin mode
+	GPIO_SetMode(pGPIOxHandle->pGPIOx_Base, pin, mode);
+
+	//2. Set GPIO pin output type
+	GPIO_SetOutputType(pGPIOxHandle->pGPIOx_Base, pin, OPType);
+
+	//3. Set GPIO pin output speed
+	GPIO_SetOutputSpeed(pGPIOxHandle->pGPIOx_Base, pin, speed);
+
+	//4. Set GPIO pin pull up/down config
+	GPIO_SetPullUpDown(pGPIOxHandle->pGPIOx_Base, pin, PUPDConfig);
 }

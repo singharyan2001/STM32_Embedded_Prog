@@ -16,6 +16,11 @@
  */
 
 /*
+*/
+#define GPIO_PIN_SET		1
+#define GPIO_PIN_RESET		0
+
+/*
  * @GPIO_PIN_NUMBERS
  * GPIO Pin Numbers Macros
  */
@@ -125,6 +130,19 @@ void GPIOx_PClkControl(GPIOx_RegDef_t *pGPIOx_Base, uint8_t EN_DI);
  */
 void GPIOx_Init(GPIOx_Handle_t *pGPIOHandle);
 void GPIOx_DeInit(GPIOx_RegDef_t *pGPIOx_Base);
+
+/*
+ * GPIO Peripheral - low level functions
+*/
+
+void GPIO_SetMode(GPIOx_RegDef_t *pGPIOx_Base, uint8_t GPIO_Pin, uint8_t mode);
+void GPIO_SetOutputType(GPIOx_RegDef_t *pGPIOx_Base, uint8_t GPIO_Pin, uint8_t output_type);
+void GPIO_SetOutputSpeed(GPIOx_RegDef_t *pGPIOx_Base, uint8_t GPIO_Pin, uint8_t speed);
+void GPIO_SetPullUpDown(GPIOx_RegDef_t *pGPIOx_Base, uint8_t GPIO_Pin, uint8_t config);
+void GPIO_SetPin(GPIOx_RegDef_t *pGPIOx_Base, uint8_t GPIO_Pin);
+void GPIO_ResetPin(GPIOx_RegDef_t *pGPIOx_Base, uint8_t GPIO_Pin);
+void GPIO_SetAltFunMode(GPIOx_RegDef_t *pGPIOx_Base, uint8_t GPIO_Pin, uint8_t Altfun);
+
 
 /*
  * GPIO Peripheral - Read/Write, and Toggle APIs

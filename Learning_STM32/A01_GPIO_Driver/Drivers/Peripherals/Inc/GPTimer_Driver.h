@@ -59,4 +59,12 @@ void TIMx_EnableInterrupt(TIM_RegDef_t *TIMx, uint8_t IRQ_no);
 void TIMx_DisableInterrupt(TIM_RegDef_t *TIMx, uint8_t IRQ_no);
 void TIMx_IRQHandling(TIM_RegDef_t *TIMx);
 
+
+//PWM APIs
+
+
+
+
+
+
 #endif /* INC_GPTIMER_DRIVER_H_ */

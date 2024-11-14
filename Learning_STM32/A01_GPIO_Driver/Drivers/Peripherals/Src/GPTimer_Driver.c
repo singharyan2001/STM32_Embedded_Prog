@@ -164,3 +164,15 @@ void TIMx_IRQHandling(TIM_RegDef_t *TIMx){
 	}
 }
 
+
+
+//PWM APIs
+
+
+
+
+
+
+
+
+

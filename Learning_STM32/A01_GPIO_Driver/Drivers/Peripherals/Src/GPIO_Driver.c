@@ -59,6 +59,48 @@ void GPIOx_PClkControl(GPIOx_RegDef_t *pGPIOx_Base, uint8_t EN_DI){
 	}
 }
 
+/*
+ * GPIO Peripheral - Low level functions
+*/
+
+void GPIO_SetMode(GPIOx_RegDef_t *pGPIOx_Base, uint8_t GPIO_Pin, uint8_t mode){
+	uint8_t bit_pos = GPIO_Pin * 2;
+	pGPIOx_Base->MODER &= ~(0x3 << bit_pos);	//Clear bits
+	pGPIOx_Base->MODER |= (mode << bit_pos);	//Set bits
+}
+
+void GPIO_SetOutputType(GPIOx_RegDef_t *pGPIOx_Base, uint8_t GPIO_Pin, uint8_t output_type){
+	uint8_t bit_pos = GPIO_Pin;
+	pGPIOx_Base->OTYPER &= ~(0x3 << bit_pos);			//Clear bits
+	pGPIOx_Base->OTYPER |= (output_type << bit_pos);	//Set bits
+}
+
+void GPIO_SetOutputSpeed(GPIOx_RegDef_t *pGPIOx_Base, uint8_t GPIO_Pin, uint8_t speed){
+	uint8_t bit_pos = GPIO_Pin * 2;
+	pGPIOx_Base->OSPEEDR &= ~(0x3 << bit_pos);		//Clear bits
+	pGPIOx_Base->OSPEEDR |= (speed << bit_pos);		//Set bits
+}
+
+void GPIO_SetPullUpDown(GPIOx_RegDef_t *pGPIOx_Base, uint8_t GPIO_Pin, uint8_t config){
+	uint8_t bit_pos = GPIO_Pin;
+	pGPIOx_Base->PUPDR &= ~(0x3 << bit_pos);	//Clear bits
+	pGPIOx_Base->PUPDR |= (config << bit_pos);	//Set bits
+}
+
+void GPIO_SetPin(GPIOx_RegDef_t *pGPIOx_Base, uint8_t GPIO_Pin){
+	pGPIOx_Base->BSSR |= (1 << GPIO_Pin);
+}
+
+void GPIO_ResetPin(GPIOx_RegDef_t *pGPIOx_Base, uint8_t GPIO_Pin){
+	pGPIOx_Base->BSSR |= (1 << (GPIO_Pin + 16));	
+}
+
+void GPIO_SetAltFunMode(GPIOx_RegDef_t *pGPIOx_Base, uint8_t GPIO_Pin, uint8_t Altfun){
+	uint8_t reg_index = GPIO_Pin / 8;
+	uint8_t bit_pos = ((GPIO_Pin % 8) * 4);
+	pGPIOx_Base->AFR[reg_index] &= ~(0xf << bit_pos);
+	pGPIOx_Base->AFR[reg_index] |= (Altfun << bit_pos);
+}
 
 /*
  * GPIO Peripheral - GPIO Initialization API Definition
@@ -103,8 +145,8 @@ void GPIOx_Init(GPIOx_Handle_t *pGPIOHandle){
 		//5. Set GPIO Pin Alternate Functionality Mode
 		if(pGPIOHandle->GPIO_PinConfig.GPIOx_PinMode == GPIO_MODE_ALTERNATE){
 			//Configure the Alternate functionality registers
-			reg_index = (pGPIOHandle->GPIO_PinConfig.GPIOx_PinNumber % 8);
-			temp = (pGPIOHandle->GPIO_PinConfig.GPIOx_PinNumber / 8);
+			reg_index = (pGPIOHandle->GPIO_PinConfig.GPIOx_PinNumber / 8);
+			temp = (pGPIOHandle->GPIO_PinConfig.GPIOx_PinNumber % 8);
 			bit_pos = (temp * 4);
 			pGPIOHandle->pGPIOx_Base->AFR[reg_index] &= ~(0xf << bit_pos);	//Clear the Bits
 			pGPIOHandle->pGPIOx_Base->AFR[reg_index] |= (pGPIOHandle->GPIO_PinConfig.GPIOx_PinAltFunMode << bit_pos);	//Set Bits

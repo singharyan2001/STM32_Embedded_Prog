@@ -27,6 +27,13 @@
 #define SYSTEM_FREQUENCY	16000000
 #define TIMER_FREQUENCY		1000	//1KHz - 1000Hz
 
+void TIM2_PWM_Init(uint32_t frequency);
+void TIM2_SetDutyCycle(uint32_t duty_cycle);
+
+//void TIM_PWM_Init(TIM_RegDef_t *TIMx, uint32_t frequency);
+//void TIM_SetDutyCycle(TIM_RegDef_t *TIMx, uint32_t duty_cycle);
+
+
 //void LED_YGRB_Test(void);
 //void PORTC_LED_Test(void);
 void ONBOARD_LED_Test(void);
@@ -142,10 +149,22 @@ int main(void)
 //	GPIO_IRQ_Priority_Config(IRQ_NO_EXTI15_10, NVIC_IRQ_PRI_15);	//Priority no - 15
 
 	//TIMx_Start(TIM2);
-	TIMx_Delay_ms_Init(TIM2);
+	//TIMx_Delay_ms_Init(TIM2);
+
+	TIM2_PWM_Init(1000);	//1khz
+
+	for (volatile int i = 0; i < 1000000; i++); // Simple delay
+
 
 	while(1){
-		ONBOARD_LED_Test();
+		//ONBOARD_LED_Test();
+
+		TIM2_SetDutyCycle(750);
+		for (volatile int i = 0; i < 1000000; i++); // Simple delay
+		TIM2_SetDutyCycle(250);
+		for (volatile int i = 0; i < 1000000; i++); // Simple delay
+		TIM2_SetDutyCycle(50);
+		for (volatile int i = 0; i < 1000000; i++); // Simple delay
 	}
 }
 
@@ -220,4 +239,63 @@ void ONBOARD_LED_Test(void){
 void ONBOARD_LED_Toggle(void){
 	GPIO_ToggleOutputPin(GPIOA, ONBOARD_LED.GPIO_PinConfig.GPIOx_PinNumber);
 }
+
+//void TIM_PWM_Init(TIM_RegDef_t *TIMx, uint32_t frequency){
+//	//1.Enable Timer X and GPIO X Clock
+//	TIMx_ClockEnable(TIMx);
+//	RCC->AHB1ENR |= (1<<0); //enable clock access to GPIOA Peripheral
+//	GPIOx_PClkControl(GPIOA, CLK_EN);
+//
+//	//2. Set GPIO Pin to Alternate Function Mode (PA5)
+//	GPIOA->MODER |= (1<<5);
+//	GPIOA->OTYPER &= ~(1<<5);
+//
+//	//3. Configure TIMER x for PWM
+//
+//	//4. Set PWM Mode on TIMER X Channel n
+//
+//	//5. Set Initial duty cycle to 50%
+//
+//	//6. Enable Timer X Counter
+//}
+
+void TIM2_PWM_Init(uint32_t frequency) {
+    // 1. Enable Timer 2 and GPIOA Clocks
+    RCC->APB1ENR |= (1<<0); // Enable TIM2 Clock
+    RCC->AHB1ENR |= (1<<0); // Enable GPIOA Clock
+
+    // 2. Set PA5 to Alternate Function Mode
+    GPIOA->MODER &= ~(0x3 << (5 * 2));   // Clear MODER5[1:0] bits for PA5
+    GPIOA->MODER |= (0x2 << (5 * 2));    // Set MODER5 to Alternate Function mode
+    GPIOA->AFR[0] |= (0x1 << (5 * 4));   // Set AFRL5 to AF1 (TIM2 CH1 on PA5)
+
+    // 3. Configure Timer 2 for PWM
+    uint32_t psc_value = (SYSTEM_FREQUENCY / (frequency)) - 1;
+    TIM2->PSC = psc_value;              // Set prescaler for 1 kHz PWM frequency
+    TIM2->ARR = 999;                    // Set Auto-Reload Register for 1 ms period (1000 ticks at 1 MHz)
+
+    // 4. Set PWM Mode 1 on TIM2 CH1
+    TIM2->CCMR1 |= (0x6 << 4);  // PWM Mode 1 on Channel 1
+    TIM2->CCMR1 |= (1<<3);         			     // Enable preload on CCR1
+    TIM2->CCER |= 0x0001;                 // Enable output on TIM2 CH1
+
+    // 5. Set initial duty cycle to 50%
+    TIM2->CCR1 = 500;  // 50% Duty Cycle
+
+    // 6. Enable Timer 2 Counter
+    TIM2->CR1 |= (1<<0);
+}
+
+void TIM2_SetDutyCycle(uint32_t duty_cycle) {
+    // Ensure duty cycle does not exceed ARR
+    if (duty_cycle > TIM2->ARR) duty_cycle = TIM2->ARR;
+    TIM2->CCR1 = duty_cycle;
+}
+
+
+//void TIM_SetDutyCycle(TIM_RegDef_t *TIMx, uint32_t duty_cycle){
+//	//1. Check: Ensure Duty cycle does not exceed Auto-reload register value
+//
+//	//2. Set new duty cycle
+//}
 

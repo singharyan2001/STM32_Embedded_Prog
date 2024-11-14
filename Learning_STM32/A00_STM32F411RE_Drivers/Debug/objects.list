@@ -1,3 +1,7 @@
+"./Drivers/Peripherals/Src/GPIO_Driver.o"
+"./Drivers/Peripherals/Src/GPTimer_Driver.o"
+"./Drivers/Peripherals/Src/SYSTICK_Driver.o"
+"./Drivers/Processor/Src/NVIC.o"
 "./Src/main.o"
 "./Src/syscalls.o"
 "./Src/sysmem.o"
