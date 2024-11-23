@@ -155,7 +155,6 @@ int main(void)
 
 	for (volatile int i = 0; i < 1000000; i++); // Simple delay
 
-
 	while(1){
 		//ONBOARD_LED_Test();
 
@@ -272,7 +271,7 @@ void TIM2_PWM_Init(uint32_t frequency) {
     // 3. Configure Timer 2 for PWM
     uint32_t psc_value = (SYSTEM_FREQUENCY / (frequency)) - 1;
     TIM2->PSC = psc_value;              // Set prescaler for 1 kHz PWM frequency
-    TIM2->ARR = 999;                    // Set Auto-Reload Register for 1 ms period (1000 ticks at 1 MHz)
+    TIM2->ARR = 999;                    // Set Auto-Reload Register for 1 ms period, therefore 1000ticks - 1000ms i.e. 1 second (1000 ticks at 1 MHz)
 
     // 4. Set PWM Mode 1 on TIM2 CH1
     TIM2->CCMR1 |= (0x6 << 4);  // PWM Mode 1 on Channel 1

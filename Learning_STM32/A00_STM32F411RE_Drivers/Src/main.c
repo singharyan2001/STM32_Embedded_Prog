@@ -24,6 +24,8 @@
 //#include "SYSTICK_Driver.h"
 //#include "NVIC.h"
 
+#define SYSTEM_FREQUENCY	16000000
+#define TIMER_FREQUENCY		1000
 
 #if !defined(__SOFT_FP__) && defined(__ARM_FP)
 	#warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
@@ -38,11 +40,11 @@ int main(void)
 
 	GPIOx_PinConfig_t internal_ledconfig = {
 		.GPIOx_PinNumber = 5,
-		.GPIOx_PinMode = GPIO_MODE_OUTPUT,
+		.GPIOx_PinMode = GPIO_MODE_ALTERNATE,
 		.GPIOx_PinSpeed = GPIO_SPEED_LOW,
 		.GPIOx_PinOPType = GPIO_OUTPUT_PUSH_PULL,
 		.GPIOx_PinPUPDControl = GPIO_PUPD_NA,
-		.GPIOx_PinAltFunMode = 0
+		.GPIOx_PinAltFunMode = GPIO_AFR_AF1
 	};
 
 	//Set GPIO pin handler configurations
@@ -50,18 +52,47 @@ int main(void)
 	memcpy(&PA5.GPIO_PinConfig, &internal_ledconfig, sizeof(GPIOx_PinConfig_t));
 
 	//Initial GPIO pin
-	GPIO_Init(&PA5);
+	GPIOx_PClkControl(GPIOA, CLK_EN);
+	//GPIO_Init(&PA5);
+	GPIOx_Init(&PA5);
 
 	//Initialize a timer peripheral for delays
-	TIMx_Delay_ms_Init(TIM2);
+	//TIMx_Delay_ms_Init(TIM2);
+
+	TIMx_Config_t TIM2_Config;
+	memset(&TIM2_Config, 0, sizeof(TIMx_Config_t));
+
+	TIMx_PWMConfig_t TIM2PWM_Config;
+	memset(&TIM2PWM_Config, 0, sizeof(TIMx_PWMConfig_t));
+
+	TIM2_Config.TIMx = TIM2;
+	TIM2_Config.System_frequency = SYSTEM_FREQUENCY;
+	TIM2_Config.Timer_frequency = TIMER_FREQUENCY;
+	TIM2_Config.Prescaler = TIMx_ComputePrescaler(TIM2, SYSTEM_FREQUENCY, TIMER_FREQUENCY),
+	TIM2_Config.Mode = TIM_MODE_UP_COUNTER;
+	TIM2_Config.delay = 1000;
+
+	TIM2PWM_Config.PWM_MODE = TIM_PWM_MODE1;
+	TIM2PWM_Config.PWM_OC_Preload_Enable = TIM_OC1PE_ENABLE;
+	TIM2PWM_Config.PWM_DutyCycle = 30;
+	TIM2PWM_Config.PWM_Channel = PWM_CHANNEL_1;
+	TIM2PWM_Config.PWM_Polarity = PWM_POLARITY_ACTIVE_HIGH;
+	TIM2PWM_Config.PWM_CH_Polarity = TIM_CCER_CC1P;
+	TIM2PWM_Config.PWM_CH_Enable = TIM_CCER_CC1E;
+
+//	TIMx_ClockEnable(TIM2);
+
+	TIMx_PWM_Init(&TIM2_Config, &TIM2PWM_Config);
+
+	TIMx_PWM_Start(TIM2);
 
     /* Loop forever */
 	for(;;){
 		//Test Set & Reset APIs
-		GPIO_SetPin(GPIOA, GPIO_PIN_5);
-		TIMx_Delay_ms(TIM2, 500);
-		GPIO_ResetPin(GPIOA, GPIO_PIN_5);
-		TIMx_Delay_ms(TIM2, 500);
+		//GPIO_SetPin(GPIOA, GPIO_PIN_5);
+		//TIMx_Delay_ms(TIM2, 500);
+		//GPIO_ResetPin(GPIOA, GPIO_PIN_5);
+		//TIMx_Delay_ms(TIM2, 500);
 	}
 }
 
@@ -76,7 +107,7 @@ void GPIO_Init(GPIOx_Handle_t *pGPIOxHandle){
 	// uint8_t Altfun_Mode = pGPIOxHandle->GPIO_PinConfig.GPIOx_PinAltFunMode;
 
 	//Enable Clock access for the peripheral
-	GPIOx_PClkControl(GPIOA, CLK_EN);
+//	GPIOx_PClkControl(GPIOA, CLK_EN);
 
 	//1. Set GPIO pin mode
 	GPIO_SetMode(pGPIOxHandle->pGPIOx_Base, pin, mode);

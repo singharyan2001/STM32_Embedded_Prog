@@ -27,25 +27,25 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 00000030  00000000  00000000  000019c0  2**0
                   CONTENTS, READONLY
- 12 .debug_info   000014c1  00000000  00000000  000019f0  2**0
+ 12 .debug_info   000016be  00000000  00000000  000019f0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 0000055e  00000000  00000000  00002eb1  2**0
+ 13 .debug_abbrev 0000055e  00000000  00000000  000030ae  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 00000170  00000000  00000000  00003410  2**3
+ 14 .debug_aranges 000001a8  00000000  00000000  00003610  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_rnglists 00000106  00000000  00000000  00003580  2**0
+ 15 .debug_rnglists 00000130  00000000  00000000  000037b8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  000024ed  00000000  00000000  00003686  2**0
+ 16 .debug_macro  000024f9  00000000  00000000  000038e8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00001add  00000000  00000000  00005b73  2**0
+ 17 .debug_line   00001c04  00000000  00000000  00005de1  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00008e8e  00000000  00000000  00007650  2**0
+ 18 .debug_str    00008f47  00000000  00000000  000079e5  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000043  00000000  00000000  000104de  2**0
+ 19 .comment      00000043  00000000  00000000  0001092c  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  0000053c  00000000  00000000  00010524  2**2
+ 20 .debug_frame  00000654  00000000  00000000  00010970  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 00000089  00000000  00000000  00010a60  2**0
+ 21 .debug_line_str 00000089  00000000  00000000  00010fc4  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -274,7 +274,7 @@ void GPIOx_PClkControl(GPIOx_RegDef_t *pGPIOx_Base, uint8_t EN_DI){
  800031c:	40021c00 	.word	0x40021c00
 
 08000320 <GPIOx_Init>:
-
+}
 
 /*
  * GPIO Peripheral - GPIO Initialization API Definition
@@ -470,15 +470,15 @@ void GPIOx_Init(GPIOx_Handle_t *pGPIOHandle){
  800045c:	2b02      	cmp	r3, #2
  800045e:	f040 80eb 	bne.w	8000638 <GPIOx_Init+0x318>
 			//Configure the Alternate functionality registers
-			reg_index = (pGPIOHandle->GPIO_PinConfig.GPIOx_PinNumber % 8);
+			reg_index = (pGPIOHandle->GPIO_PinConfig.GPIOx_PinNumber / 8);
  8000462:	687b      	ldr	r3, [r7, #4]
  8000464:	791b      	ldrb	r3, [r3, #4]
- 8000466:	f003 0307 	and.w	r3, r3, #7
- 800046a:	73bb      	strb	r3, [r7, #14]
-			temp = (pGPIOHandle->GPIO_PinConfig.GPIOx_PinNumber / 8);
- 800046c:	687b      	ldr	r3, [r7, #4]
- 800046e:	791b      	ldrb	r3, [r3, #4]
- 8000470:	08db      	lsrs	r3, r3, #3
+ 8000466:	08db      	lsrs	r3, r3, #3
+ 8000468:	73bb      	strb	r3, [r7, #14]
+			temp = (pGPIOHandle->GPIO_PinConfig.GPIOx_PinNumber % 8);
+ 800046a:	687b      	ldr	r3, [r7, #4]
+ 800046c:	791b      	ldrb	r3, [r3, #4]
+ 800046e:	f003 0307 	and.w	r3, r3, #7
  8000472:	737b      	strb	r3, [r7, #13]
 			bit_pos = (temp * 4);
  8000474:	7b7b      	ldrb	r3, [r7, #13]
@@ -937,7 +937,6 @@ int main(void)
  800076a:	4293      	cmp	r3, r2
  800076c:	ddf8      	ble.n	8000760 <main+0x80>
 
-
 	while(1){
 		//ONBOARD_LED_Test();
 
@@ -1086,7 +1085,7 @@ void TIM2_PWM_Init(uint32_t frequency) {
  8000850:	f04f 4280 	mov.w	r2, #1073741824	@ 0x40000000
  8000854:	68fb      	ldr	r3, [r7, #12]
  8000856:	6293      	str	r3, [r2, #40]	@ 0x28
-    TIM2->ARR = 999;                    // Set Auto-Reload Register for 1 ms period (1000 ticks at 1 MHz)
+    TIM2->ARR = 999;                    // Set Auto-Reload Register for 1 ms period, therefore 1000ticks - 1000ms i.e. 1 second (1000 ticks at 1 MHz)
  8000858:	f04f 4380 	mov.w	r3, #1073741824	@ 0x40000000
  800085c:	f240 32e7 	movw	r2, #999	@ 0x3e7
  8000860:	62da      	str	r2, [r3, #44]	@ 0x2c

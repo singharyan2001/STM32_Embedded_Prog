@@ -65,6 +65,20 @@ Discarded input sections
  .text          0x00000000        0x0 ./Drivers/Peripherals/Src/GPIO_Driver.o
  .data          0x00000000        0x0 ./Drivers/Peripherals/Src/GPIO_Driver.o
  .bss           0x00000000        0x0 ./Drivers/Peripherals/Src/GPIO_Driver.o
+ .text.GPIO_SetMode
+                0x00000000       0x48 ./Drivers/Peripherals/Src/GPIO_Driver.o
+ .text.GPIO_SetOutputType
+                0x00000000       0x46 ./Drivers/Peripherals/Src/GPIO_Driver.o
+ .text.GPIO_SetOutputSpeed
+                0x00000000       0x48 ./Drivers/Peripherals/Src/GPIO_Driver.o
+ .text.GPIO_SetPullUpDown
+                0x00000000       0x46 ./Drivers/Peripherals/Src/GPIO_Driver.o
+ .text.GPIO_SetPin
+                0x00000000       0x2a ./Drivers/Peripherals/Src/GPIO_Driver.o
+ .text.GPIO_ResetPin
+                0x00000000       0x2c ./Drivers/Peripherals/Src/GPIO_Driver.o
+ .text.GPIO_SetAltFunMode
+                0x00000000       0x70 ./Drivers/Peripherals/Src/GPIO_Driver.o
  .text.GPIOx_DeInit
                 0x00000000       0xfc ./Drivers/Peripherals/Src/GPIO_Driver.o
  .text.GPIO_ReadFromInputPin
@@ -238,7 +252,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x103 ./Src/main.o
  .debug_macro   0x00000000       0x6a ./Src/main.o
  .debug_macro   0x00000000      0x1df ./Src/main.o
- .debug_macro   0x00000000      0x12a ./Src/main.o
+ .debug_macro   0x00000000      0x136 ./Src/main.o
  .debug_macro   0x00000000       0x1c ./Src/main.o
  .debug_macro   0x00000000       0x22 ./Src/main.o
  .group         0x00000000        0xc ./Src/syscalls.o
@@ -971,11 +985,11 @@ LOAD C:/ST/STM32CubeIDE_1.10.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
 LOAD C:/ST/STM32CubeIDE_1.10.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.0.200.202406191623/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libm.a
 LOAD C:/ST/STM32CubeIDE_1.10.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.0.200.202406191623/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/thumb/v7e-m+fp/hard\libgcc.a
 
-.debug_info     0x00000000     0x14c1
- .debug_info    0x00000000      0x700 ./Drivers/Peripherals/Src/GPIO_Driver.o
- .debug_info    0x00000700      0x64e ./Drivers/Peripherals/Src/GPTimer_Driver.o
- .debug_info    0x00000d4e      0x743 ./Src/main.o
- .debug_info    0x00001491       0x30 ./Startup/startup_stm32f411retx.o
+.debug_info     0x00000000     0x16be
+ .debug_info    0x00000000      0x8fd ./Drivers/Peripherals/Src/GPIO_Driver.o
+ .debug_info    0x000008fd      0x64e ./Drivers/Peripherals/Src/GPTimer_Driver.o
+ .debug_info    0x00000f4b      0x743 ./Src/main.o
+ .debug_info    0x0000168e       0x30 ./Startup/startup_stm32f411retx.o
 
 .debug_abbrev   0x00000000      0x55e
  .debug_abbrev  0x00000000      0x194 ./Drivers/Peripherals/Src/GPIO_Driver.o
@@ -983,28 +997,28 @@ LOAD C:/ST/STM32CubeIDE_1.10.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  .debug_abbrev  0x00000324      0x216 ./Src/main.o
  .debug_abbrev  0x0000053a       0x24 ./Startup/startup_stm32f411retx.o
 
-.debug_aranges  0x00000000      0x170
+.debug_aranges  0x00000000      0x1a8
  .debug_aranges
-                0x00000000       0x78 ./Drivers/Peripherals/Src/GPIO_Driver.o
+                0x00000000       0xb0 ./Drivers/Peripherals/Src/GPIO_Driver.o
  .debug_aranges
-                0x00000078       0x80 ./Drivers/Peripherals/Src/GPTimer_Driver.o
+                0x000000b0       0x80 ./Drivers/Peripherals/Src/GPTimer_Driver.o
  .debug_aranges
-                0x000000f8       0x50 ./Src/main.o
+                0x00000130       0x50 ./Src/main.o
  .debug_aranges
-                0x00000148       0x28 ./Startup/startup_stm32f411retx.o
+                0x00000180       0x28 ./Startup/startup_stm32f411retx.o
 
 .debug_rnglists
-                0x00000000      0x106
+                0x00000000      0x130
  .debug_rnglists
-                0x00000000       0x59 ./Drivers/Peripherals/Src/GPIO_Driver.o
+                0x00000000       0x83 ./Drivers/Peripherals/Src/GPIO_Driver.o
  .debug_rnglists
-                0x00000059       0x5b ./Drivers/Peripherals/Src/GPTimer_Driver.o
+                0x00000083       0x5b ./Drivers/Peripherals/Src/GPTimer_Driver.o
  .debug_rnglists
-                0x000000b4       0x39 ./Src/main.o
+                0x000000de       0x39 ./Src/main.o
  .debug_rnglists
-                0x000000ed       0x19 ./Startup/startup_stm32f411retx.o
+                0x00000117       0x19 ./Startup/startup_stm32f411retx.o
 
-.debug_macro    0x00000000     0x24ed
+.debug_macro    0x00000000     0x24f9
  .debug_macro   0x00000000       0x7b ./Drivers/Peripherals/Src/GPIO_Driver.o
  .debug_macro   0x0000007b      0xac0 ./Drivers/Peripherals/Src/GPIO_Driver.o
  .debug_macro   0x00000b3b       0x22 ./Drivers/Peripherals/Src/GPIO_Driver.o
@@ -1014,45 +1028,45 @@ LOAD C:/ST/STM32CubeIDE_1.10.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  .debug_macro   0x00000d3f       0x6a ./Drivers/Peripherals/Src/GPIO_Driver.o
  .debug_macro   0x00000da9      0x1df ./Drivers/Peripherals/Src/GPIO_Driver.o
  .debug_macro   0x00000f88      0x3cf ./Drivers/Peripherals/Src/GPIO_Driver.o
- .debug_macro   0x00001357      0x12a ./Drivers/Peripherals/Src/GPIO_Driver.o
- .debug_macro   0x00001481       0xc1 ./Drivers/Peripherals/Src/GPTimer_Driver.o
- .debug_macro   0x00001542       0x22 ./Drivers/Peripherals/Src/GPTimer_Driver.o
- .debug_macro   0x00001564      0x160 ./Src/main.o
- .debug_macro   0x000016c4       0x5b ./Src/main.o
- .debug_macro   0x0000171f       0x2a ./Src/main.o
- .debug_macro   0x00001749       0x94 ./Src/main.o
- .debug_macro   0x000017dd       0x43 ./Src/main.o
- .debug_macro   0x00001820       0x34 ./Src/main.o
- .debug_macro   0x00001854      0x189 ./Src/main.o
- .debug_macro   0x000019dd       0x16 ./Src/main.o
- .debug_macro   0x000019f3       0x43 ./Src/main.o
- .debug_macro   0x00001a36       0x57 ./Src/main.o
- .debug_macro   0x00001a8d       0x34 ./Src/main.o
- .debug_macro   0x00001ac1       0x10 ./Src/main.o
- .debug_macro   0x00001ad1       0x58 ./Src/main.o
- .debug_macro   0x00001b29       0x8e ./Src/main.o
- .debug_macro   0x00001bb7       0x1c ./Src/main.o
- .debug_macro   0x00001bd3      0x177 ./Src/main.o
- .debug_macro   0x00001d4a      0x369 ./Src/main.o
- .debug_macro   0x000020b3       0x10 ./Src/main.o
- .debug_macro   0x000020c3       0x35 ./Src/main.o
- .debug_macro   0x000020f8       0x20 ./Src/main.o
- .debug_macro   0x00002118      0x3d5 ./Src/main.o
+ .debug_macro   0x00001357      0x136 ./Drivers/Peripherals/Src/GPIO_Driver.o
+ .debug_macro   0x0000148d       0xc1 ./Drivers/Peripherals/Src/GPTimer_Driver.o
+ .debug_macro   0x0000154e       0x22 ./Drivers/Peripherals/Src/GPTimer_Driver.o
+ .debug_macro   0x00001570      0x160 ./Src/main.o
+ .debug_macro   0x000016d0       0x5b ./Src/main.o
+ .debug_macro   0x0000172b       0x2a ./Src/main.o
+ .debug_macro   0x00001755       0x94 ./Src/main.o
+ .debug_macro   0x000017e9       0x43 ./Src/main.o
+ .debug_macro   0x0000182c       0x34 ./Src/main.o
+ .debug_macro   0x00001860      0x189 ./Src/main.o
+ .debug_macro   0x000019e9       0x16 ./Src/main.o
+ .debug_macro   0x000019ff       0x43 ./Src/main.o
+ .debug_macro   0x00001a42       0x57 ./Src/main.o
+ .debug_macro   0x00001a99       0x34 ./Src/main.o
+ .debug_macro   0x00001acd       0x10 ./Src/main.o
+ .debug_macro   0x00001add       0x58 ./Src/main.o
+ .debug_macro   0x00001b35       0x8e ./Src/main.o
+ .debug_macro   0x00001bc3       0x1c ./Src/main.o
+ .debug_macro   0x00001bdf      0x177 ./Src/main.o
+ .debug_macro   0x00001d56      0x369 ./Src/main.o
+ .debug_macro   0x000020bf       0x10 ./Src/main.o
+ .debug_macro   0x000020cf       0x35 ./Src/main.o
+ .debug_macro   0x00002104       0x20 ./Src/main.o
+ .debug_macro   0x00002124      0x3d5 ./Src/main.o
 
-.debug_line     0x00000000     0x1add
- .debug_line    0x00000000      0xa80 ./Drivers/Peripherals/Src/GPIO_Driver.o
- .debug_line    0x00000a80      0x798 ./Drivers/Peripherals/Src/GPTimer_Driver.o
- .debug_line    0x00001218      0x84a ./Src/main.o
- .debug_line    0x00001a62       0x7b ./Startup/startup_stm32f411retx.o
+.debug_line     0x00000000     0x1c04
+ .debug_line    0x00000000      0xba7 ./Drivers/Peripherals/Src/GPIO_Driver.o
+ .debug_line    0x00000ba7      0x798 ./Drivers/Peripherals/Src/GPTimer_Driver.o
+ .debug_line    0x0000133f      0x84a ./Src/main.o
+ .debug_line    0x00001b89       0x7b ./Startup/startup_stm32f411retx.o
 
-.debug_str      0x00000000     0x8e8e
- .debug_str     0x00000000     0x55c2 ./Drivers/Peripherals/Src/GPIO_Driver.o
-                               0x5769 (size before relaxing)
- .debug_str     0x000055c2      0x320 ./Drivers/Peripherals/Src/GPTimer_Driver.o
+.debug_str      0x00000000     0x8f47
+ .debug_str     0x00000000     0x567b ./Drivers/Peripherals/Src/GPIO_Driver.o
+                               0x5822 (size before relaxing)
+ .debug_str     0x0000567b      0x320 ./Drivers/Peripherals/Src/GPTimer_Driver.o
                                0x547f (size before relaxing)
- .debug_str     0x000058e2     0x356d ./Src/main.o
-                               0x8cd8 (size before relaxing)
- .debug_str     0x00008e4f       0x3f ./Startup/startup_stm32f411retx.o
+ .debug_str     0x0000599b     0x356d ./Src/main.o
+                               0x8cf8 (size before relaxing)
+ .debug_str     0x00008f08       0x3f ./Startup/startup_stm32f411retx.o
                                  0xa5 (size before relaxing)
 
 .comment        0x00000000       0x43
@@ -1061,12 +1075,12 @@ LOAD C:/ST/STM32CubeIDE_1.10.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  .comment       0x00000043       0x44 ./Drivers/Peripherals/Src/GPTimer_Driver.o
  .comment       0x00000043       0x44 ./Src/main.o
 
-.debug_frame    0x00000000      0x53c
- .debug_frame   0x00000000      0x1f0 ./Drivers/Peripherals/Src/GPIO_Driver.o
- .debug_frame   0x000001f0      0x204 ./Drivers/Peripherals/Src/GPTimer_Driver.o
- .debug_frame   0x000003f4       0xfc ./Src/main.o
- .debug_frame   0x000004f0       0x20 C:/ST/STM32CubeIDE_1.10.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.0.200.202406191623/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(libc_a-memset.o)
- .debug_frame   0x00000510       0x2c C:/ST/STM32CubeIDE_1.10.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.0.200.202406191623/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(libc_a-init.o)
+.debug_frame    0x00000000      0x654
+ .debug_frame   0x00000000      0x308 ./Drivers/Peripherals/Src/GPIO_Driver.o
+ .debug_frame   0x00000308      0x204 ./Drivers/Peripherals/Src/GPTimer_Driver.o
+ .debug_frame   0x0000050c       0xfc ./Src/main.o
+ .debug_frame   0x00000608       0x20 C:/ST/STM32CubeIDE_1.10.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.0.200.202406191623/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(libc_a-memset.o)
+ .debug_frame   0x00000628       0x2c C:/ST/STM32CubeIDE_1.10.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.0.200.202406191623/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(libc_a-init.o)
 
 .debug_line_str
                 0x00000000       0x89

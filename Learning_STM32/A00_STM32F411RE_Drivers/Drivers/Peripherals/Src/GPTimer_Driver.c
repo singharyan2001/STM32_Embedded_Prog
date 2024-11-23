@@ -8,6 +8,7 @@
 #include "STM32F411xx.h"
 #include "GPTimer_Driver.h"
 #include "NVIC.h"
+#include "GPIO_Driver.h"
 
 
 #define sys_freq_default	16000000
@@ -162,5 +163,90 @@ void TIMx_IRQHandling(TIM_RegDef_t *TIMx){
 	if(TIMx->SR & TIMx_SR_UIF){
 		TIMx->SR &= ~TIMx_SR_UIF;
 	}
+}
+
+/*
+ * PWM Drivers
+ */
+
+void TIMx_PWM_Init(TIMx_Config_t *TIMConfig, TIMx_PWMConfig_t *PWMConfig){
+	//1. Initialize Timer hardware - Enable Timer clock, prescaler, ARR
+	TIMx_ClockEnable(TIMConfig->TIMx);
+	uint32_t psc_value = TIMx_ComputePrescaler(TIMConfig->TIMx, TIMConfig->System_frequency, TIMConfig->Timer_frequency);
+	TIMx_SetPrescaler(TIMConfig->TIMx, psc_value);
+	TIMx_SetPeriod(TIMConfig->TIMx, TIMConfig->delay);
+
+	//2. Configure PWM Mode - Mode, OC Preload enable, initial duty cycle
+	TIMx_PWM_SetMode(TIMConfig->TIMx, PWMConfig->PWM_MODE);
+	TIMx_PWM_SetOCPreload(TIMConfig->TIMx, PWMConfig->PWM_MODE);
+	TIMx_PWM_SetDutyCycle(TIMConfig->TIMx, PWMConfig->PWM_DutyCycle, PWMConfig->PWM_Channel);
+
+	//3. Configure PWM Polarity and Enable Output channel
+	TIMx_PWM_SetPolarity(TIMConfig->TIMx, PWMConfig->PWM_Polarity, PWMConfig->PWM_CH_Polarity);
+	TIMx_PWM_EnableOutputChannel(TIMConfig->TIMx, PWMConfig->PWM_CH_Enable);
+
+}
+
+
+void TIMx_PWM_SetAltFunMode(GPIOx_RegDef_t *pGPIOx_Base, uint8_t GPIO_Pin, uint8_t Altfun){
+	uint8_t reg_index = GPIO_Pin / 8;
+	uint8_t bit_pos = ((GPIO_Pin % 8) * 4);
+	pGPIOx_Base->AFR[reg_index] &= ~(0xf << bit_pos);
+	pGPIOx_Base->AFR[reg_index] |= (Altfun << bit_pos);
+}
+
+void TIMx_PWM_SetMode(TIM_RegDef_t *TIMx, uint8_t pwm_mode){
+	//1.Set PWM Mode in Capture/Compare Mode 1 Register - CCMR1
+	TIMx->CCMR1 |= (pwm_mode << TIM_CCMR1_OC1M);
+}
+
+void TIMx_PWM_SetOCPreload(TIM_RegDef_t *TIMx, uint8_t en){
+	//1. Configure the Output Compare Preload - 0CxPE bit in CCMR1
+	TIMx->CCMR1 |= (en << TIM_CCMR1_OC1PE);
+}
+
+void TIMx_PWM_SetPolarity(TIM_RegDef_t *TIMx, uint8_t polarity, uint8_t channel_polarity){
+	//1. Configure PWM Polarity of the PWM Channel
+	TIMx->CCER |= (polarity << channel_polarity);
+}
+
+void TIMx_PWM_EnableOutputChannel(TIM_RegDef_t *TIMx, uint8_t channel_en){
+	TIMx->CCER |= (1 << channel_en);
+}
+
+void TIMx_PWM_SetDutyCycle(TIM_RegDef_t *TIMx, uint32_t duty_cycle, uint8_t channel){
+	//1. Check if input duty cycle is valid
+	if(duty_cycle > 100){
+		duty_cycle = 100;
+	}
+	//2. Calculate CCR value
+	uint32_t CCR_Value = (TIMx->ARR+1)*duty_cycle/100;
+
+	//3. Configure duty cycle wrt channel
+	switch(channel){
+		case 1:
+			TIMx->CCR1 = CCR_Value;
+			break;
+		case 2:
+			TIMx->CCR2 = CCR_Value;
+			break;
+		case 3:
+			TIMx->CCR3 = CCR_Value;
+			break;
+		case 4:
+			TIMx->CCR4 = CCR_Value;
+			break;
+	}
+
+}
+
+void TIMx_PWM_Start(TIM_RegDef_t *TIMx){
+	//1. Start PWM Timer
+	TIMx->CR1 |= (1<<TIM_CR1_CEN);
+}
+
+void TIMx_PWM_Stop(TIM_RegDef_t *TIMx){
+	//1. Stop PWM Timer
+	TIMx->CR1 &= ~(1<<TIM_CR1_CEN);
 }
 
