@@ -1,0 +1,4 @@
+../Interface/Src/DHT22.c:13:10:DHT22_SetTiming	1
+../Interface/Src/DHT22.c:19:10:DHT22_Init	1
+../Interface/Src/DHT22.c:41:10:DHT22_Read	1
+../Interface/Src/DHT22.c:87:10:DHT22_GetStatus	1
