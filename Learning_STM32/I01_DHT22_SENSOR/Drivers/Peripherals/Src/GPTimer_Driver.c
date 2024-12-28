@@ -14,17 +14,17 @@
 #define tim_freq_1khz_ms	1000		//1ms
 #define TIMER_FREQUENCY_1MHZ	1000000
 
-//APB1 Bus interface
-#define TIM2_EN			(1<<0)		//APB1
-#define TIM3_EN			(1<<1)		//APB1
-#define TIM4_EN			(1<<2)		//APB1
-#define TIM5_EN			(1<<3)		//APB1
-
-//General MACROS
-#define TIMx_CEN		(1<<0)
-#define TIMx_SR_UIF		(1<<0)
-
-#define TIMx_UIE		 0
+////APB1 Bus interface
+//#define TIM2_EN			(1<<0)		//APB1
+//#define TIM3_EN			(1<<1)		//APB1
+//#define TIM4_EN			(1<<2)		//APB1
+//#define TIM5_EN			(1<<3)		//APB1
+//
+////General MACROS
+//#define TIMx_CEN		(1<<0)
+//#define TIMx_SR_UIF		(1<<0)
+//
+//#define TIMx_UIE		 0
 
 
 //Configuration APIs
@@ -158,15 +158,22 @@ void TIMx_Delay_ms(TIM_RegDef_t *TIMx, uint32_t delay_ms) {
 void TIMx_Single_Delay_us(TIM_RegDef_t *TIMx, uint32_t delay_us) {
     // Reset timer counter to 0
     TIMx->CNT = 0;
+    TIMx->ARR = (delay_us-1);
 
     // Start timer
     TIMx_Start(TIMx);
 
     // Wait until counter reaches 30
-    while (TIMx->CNT < delay_us);
+    for(volatile uint32_t i = 0; i < 1; i++){
+    	//Check for update flag
+    	while(!(TIMx->SR & TIMx_SR_UIF)){}
+    	//Clear flag
+    	TIMx->SR &= ~TIMx_SR_UIF;
+    }
 
     // Stop timer
     TIMx_Stop(TIMx);
+    TIMx->ARR = (1000-1);
 }
 
 

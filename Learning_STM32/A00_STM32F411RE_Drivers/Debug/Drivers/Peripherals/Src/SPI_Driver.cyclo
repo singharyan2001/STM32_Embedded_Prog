@@ -1,0 +1,8 @@
+../Drivers/Peripherals/Src/SPI_Driver.c:16:6:SPI_PCLK_Control	13
+../Drivers/Peripherals/Src/SPI_Driver.c:58:6:SPI_Init	7
+../Drivers/Peripherals/Src/SPI_Driver.c:120:6:SPI_Deinit	6
+../Drivers/Peripherals/Src/SPI_Driver.c:152:6:SPI_SendData	1
+../Drivers/Peripherals/Src/SPI_Driver.c:156:6:SPI_ReceiveData	1
+../Drivers/Peripherals/Src/SPI_Driver.c:161:6:SPI_IRQ_INT_Config	1
+../Drivers/Peripherals/Src/SPI_Driver.c:165:6:SPI_IRQ_Priority_Config	1
+../Drivers/Peripherals/Src/SPI_Driver.c:169:6:SPI_IRQHandling	1

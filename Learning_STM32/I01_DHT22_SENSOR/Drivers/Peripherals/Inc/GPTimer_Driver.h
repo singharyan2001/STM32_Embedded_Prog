@@ -12,6 +12,19 @@
 #include <stdint.h>
 #include "GPIO_Driver.h"
 
+//APB1 Bus interface
+#define TIM2_EN			(1<<0)		//APB1
+#define TIM3_EN			(1<<1)		//APB1
+#define TIM4_EN			(1<<2)		//APB1
+#define TIM5_EN			(1<<3)		//APB1
+
+//General MACROS
+#define TIMx_CEN		(1<<0)
+#define TIMx_SR_UIF		(1<<0)
+
+#define TIMx_UIE		 0
+
+
 /*
  * Register specific macros
  */

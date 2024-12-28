@@ -16,6 +16,7 @@
  ******************************************************************************
  */
 
+#include <stdio.h>
 #include <stdint.h>
 #include "STM32F411xx.h"
 #include "DHT22.h"
@@ -34,7 +35,8 @@ int main(void)
 	DHT22_Init(GPIOC, GPIO_PIN_10);
 	/* Loop forever */
 	for (;;) {
-		DHT22_Read(GPIOC, GPIO_PIN_10, &data.Temperature, &data.Humidity);
+		uint8_t status = DHT22_Read(GPIOC, GPIO_PIN_10, &data.Temperature, &data.Humidity);
+		printf("Status of DHT22 Read: %d\n", status);
 		TIMx_Delay_ms(TIM2, 2000); // 2s delay
 	}
 }

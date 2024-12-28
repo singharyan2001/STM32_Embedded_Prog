@@ -21,6 +21,7 @@
 #include "STM32F411xx.h"
 #include "GPIO_Driver.h"
 #include "GPTimer_Driver.h"
+#include "SPI_Driver.h"
 //#include "SYSTICK_Driver.h"
 //#include "NVIC.h"
 

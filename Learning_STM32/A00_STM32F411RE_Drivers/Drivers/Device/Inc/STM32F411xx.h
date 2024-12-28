@@ -299,6 +299,38 @@ typedef struct{
 #define TIM2_PCLK_DI()		(RCC->APB1ENR &= ~(1<<0))
 
 
+/*
+ * Macros to Enable/Disable clock access to SPI Peripheral
+*/
+#define SPI1_PCLK_EN()		(RCC->APB2ENR |= (1<<12))
+#define SPI1_PCLK_DI()		(RCC->APB2ENR &= ~(1<<12))
+
+#define SPI2_PCLK_EN()		(RCC->APB1ENR |= (1<<14))
+#define SPI2_PCLK_DI()		(RCC->APB1ENR &= ~(1<<14))
+
+#define SPI3_PCLK_EN()		(RCC->APB1ENR |= (1<<15))
+#define SPI3_PCLK_DI()		(RCC->APB1ENR &= ~(1<<15))
+
+#define SPI4_PCLK_EN()		(RCC->APB2ENR |= (1<<13))
+#define SPI4_PCLK_DI()		(RCC->APB2ENR &= ~(1<<13))
+
+#define SPI5_PCLK_EN()		(RCC->APB2ENR |= (1<<20))
+#define SPI5_PCLK_DI()		(RCC->APB2ENR &= ~(1<<20))
+
+
+/*
+ * Reset SPI Peripheral Macros
+*/
+
+#define SPI1_REG_RESET()	do{ (RCC->APB2RSTR |= (1<<12));	(RCC->APB2RSTR &= ~(1<<12)); }while(0)	/*!< First set bits then clear bits! >*/
+
+#define SPI2_REG_RESET()	do{ (RCC->APB1RSTR |= (1<<14));	(RCC->APB1RSTR &= ~(1<<14)); }while(0)	/*!< First set bits then clear bits! >*/
+#define SPI3_REG_RESET()	do{ (RCC->APB1RSTR |= (1<<15));	(RCC->APB1RSTR &= ~(1<<15)); }while(0)	/*!< First set bits then clear bits! >*/
+
+#define SPI4_REG_RESET()	do{ (RCC->APB2RSTR |= (1<<13));	(RCC->APB2RSTR &= ~(1<<13)); }while(0)	/*!< First set bits then clear bits! >*/
+#define SPI5_REG_RESET()	do{ (RCC->APB2RSTR |= (1<<20));	(RCC->APB2RSTR &= ~(1<<20)); }while(0)	/*!< First set bits then clear bits! >*/
+
+
 /*---------------------------------------------------------------------------------------------------------------------------------------*/
 /*
  * GPIO Peripheral Register structure
@@ -387,35 +419,78 @@ typedef struct{
  */
 
 typedef struct {
-    __IO uint32_t CR1;      /*!< TIM Control Register 1,            Address offset: 0x00 */
-    __IO uint32_t CR2;      /*!< TIM Control Register 2,            Address offset: 0x04 */
-    __IO uint32_t SMCR;     /*!< TIM Slave Mode Control Register,   Address offset: 0x08 */
-    __IO uint32_t DIER;     /*!< TIM DMA/Interrupt Enable Register, Address offset: 0x0C */
-    __IO uint32_t SR;       /*!< TIM Status Register,               Address offset: 0x10 */
-    __IO uint32_t EGR;      /*!< TIM Event Generation Register,     Address offset: 0x14 */
-    __IO uint32_t CCMR1;    /*!< TIM Capture/Compare Mode Reg 1,    Address offset: 0x18 */
-    __IO uint32_t CCMR2;    /*!< TIM Capture/Compare Mode Reg 2,    Address offset: 0x1C */
-    __IO uint32_t CCER;     /*!< TIM Capture/Compare Enable Reg,    Address offset: 0x20 */
-    __IO uint32_t CNT;      /*!< TIM Counter,                      Address offset: 0x24 */
-    __IO uint32_t PSC;      /*!< TIM Prescaler,                    Address offset: 0x28 */
-    __IO uint32_t ARR;      /*!< TIM Auto-Reload Register,         Address offset: 0x2C */
-    __IO uint32_t RESERVED1;/*!< Reserved,                         Address offset: 0x30 */
-    __IO uint32_t CCR1;     /*!< TIM Capture/Compare Register 1,   Address offset: 0x34 */
-    __IO uint32_t CCR2;     /*!< TIM Capture/Compare Register 2,   Address offset: 0x38 */
-    __IO uint32_t CCR3;     /*!< TIM Capture/Compare Register 3,   Address offset: 0x3C */
-    __IO uint32_t CCR4;     /*!< TIM Capture/Compare Register 4,   Address offset: 0x40 */
-    __IO uint32_t RESERVED2;/*!< Reserved,                         Address offset: 0x44 */
-    __IO uint32_t DCR;      /*!< TIM DMA Control Register,         Address offset: 0x48 */
-    __IO uint32_t DMAR;     /*!< TIM DMA Address for Full Transfer, Address offset: 0x4C */
-    __IO uint32_t OR;       /*!< TIM Option Register,              Address offset: 0x50 */
+    __IO uint32_t CR1;      /*!< TIM Control Register 1,            				Address offset: 0x00 */
+    __IO uint32_t CR2;      /*!< TIM Control Register 2,            				Address offset: 0x04 */
+    __IO uint32_t SMCR;     /*!< TIM Slave Mode Control Register,   				Address offset: 0x08 */
+    __IO uint32_t DIER;     /*!< TIM DMA/Interrupt Enable Register, 				Address offset: 0x0C */
+    __IO uint32_t SR;       /*!< TIM Status Register,               				Address offset: 0x10 */
+    __IO uint32_t EGR;      /*!< TIM Event Generation Register,     				Address offset: 0x14 */
+    __IO uint32_t CCMR1;    /*!< TIM Capture/Compare Mode Reg 1,    				Address offset: 0x18 */
+    __IO uint32_t CCMR2;    /*!< TIM Capture/Compare Mode Reg 2,    				Address offset: 0x1C */
+    __IO uint32_t CCER;     /*!< TIM Capture/Compare Enable Reg,    				Address offset: 0x20 */
+    __IO uint32_t CNT;      /*!< TIM Counter,                       				Address offset: 0x24 */
+    __IO uint32_t PSC;      /*!< TIM Prescaler,                     				Address offset: 0x28 */
+    __IO uint32_t ARR;      /*!< TIM Auto-Reload Register,          				Address offset: 0x2C */
+    __IO uint32_t RESERVED1;/*!< Reserved,                          				Address offset: 0x30 */
+    __IO uint32_t CCR1;     /*!< TIM Capture/Compare Register 1,    				Address offset: 0x34 */
+    __IO uint32_t CCR2;     /*!< TIM Capture/Compare Register 2,    				Address offset: 0x38 */
+    __IO uint32_t CCR3;     /*!< TIM Capture/Compare Register 3,    				Address offset: 0x3C */
+    __IO uint32_t CCR4;     /*!< TIM Capture/Compare Register 4,    				Address offset: 0x40 */
+    __IO uint32_t RESERVED2;/*!< Reserved,                          				Address offset: 0x44 */
+    __IO uint32_t DCR;      /*!< TIM DMA Control Register,          				Address offset: 0x48 */
+    __IO uint32_t DMAR;     /*!< TIM DMA Address for Full Transfer, 				Address offset: 0x4C */
+    __IO uint32_t OR;       /*!< TIM Option Register,               				Address offset: 0x50 */
 }TIM_RegDef_t;
 
 
 //APB1 Bus interface
-#define TIM2	((TIM_RegDef_t *)0x40000000)
-#define TIM3	((TIM_RegDef_t *)0x40000400)
-#define TIM4	((TIM_RegDef_t *)0x40000800)
-#define TIM5	((TIM_RegDef_t *)0x40000C00)
+#define TIM2	((TIM_RegDef_t *)TIM2_BASE)
+#define TIM3	((TIM_RegDef_t *)TIM3_BASE)
+#define TIM4	((TIM_RegDef_t *)TIM4_BASE)
+#define TIM5	((TIM_RegDef_t *)TIM5_BASE)
+
+
+/*--------------------------------------------------------------------------------------------------------------------------------------*/
+/*
+ * Peripheral register definition structure for SPI Peripheral
+*/
+
+typedef struct{
+	//SPI Peripheral registers
+	__IO uint32_t SPI_CR1;			/*!< SPI Control Register 1              			Address offset: 0x00 */
+	__IO uint32_t SPI_CR2;			/*!< SPI Control Register 2				 			Address offset: 0x04 */
+	__IO uint32_t SPI_SR;			/*!< SPI Status Register	             			Address offset: 0x08 */
+	__IO uint32_t SPI_DR;			/*!< SPI Data Register      	         			Address offset: 0x0C */
+	__IO uint32_t SPI_CRCPR;		/*!< SPI CRC Polynomial Register         			Address offset: 0x10 */
+	__IO uint32_t SPI_RXCRCR;		/*!< SPI RX CRC Polynomial Register      			Address offset: 0x14 */
+	__IO uint32_t SPI_TXCRCR;		/*!< SPI TX CRC Polynomial Register      			Address offset: 0x18 */
+	__IO uint32_t SPI_I2SCFGR;		/*!< SPI I2S Configuration Register      			Address offset: 0x1C */
+	__IO uint32_t SPI_I2SPR;		/*!< SPI I2S Prescaler Register          			Address offset: 0x20 */
+}SPI_RegDef_t;
+
+
+//APB2 Bus Interface
+#define SPI1		((SPI_RegDef_t *)SPI1_BASE)
+#define SPI4		((SPI_RegDef_t *)SPI4_BASE)
+#define SPI5		((SPI_RegDef_t *)SPI5_BASE)
+
+//APB1 Bus Interface
+#define SPI2		((SPI_RegDef_t *)SPI2_BASE)
+#define SPI3		((SPI_RegDef_t *)SPI3_BASE)
+
+//PCLK Control definitions
+#define SPI1_PCLK_EN()		(RCC->APB2ENR |= (1<<12))
+#define SPI2_PCLK_EN()		(RCC->APB1ENR |= (1<<14))
+#define SPI3_PCLK_EN()		(RCC->APB1ENR |= (1<<15))
+#define SPI4_PCLK_EN()		(RCC->APB2ENR |= (1<<13))
+#define SPI5_PCLK_EN()		(RCC->APB2ENR |= (1<<20))
+
+#define SPI1_PCLK_DI()		(RCC->APB2ENR &= ~(1<<12))
+#define SPI2_PCLK_DI()		(RCC->APB1ENR &= ~(1<<14))
+#define SPI3_PCLK_DI()		(RCC->APB1ENR &= ~(1<<15))
+#define SPI4_PCLK_DI()		(RCC->APB2ENR &= ~(1<<13))
+#define SPI5_PCLK_DI()		(RCC->APB2ENR &= ~(1<<20))
+
 
 
 #endif /* INC_STM32F411XX_H_ */

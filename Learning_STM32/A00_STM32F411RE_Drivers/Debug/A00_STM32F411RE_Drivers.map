@@ -141,8 +141,58 @@ Discarded input sections
  .debug_macro   0x00000000      0x103 ./Drivers/Peripherals/Src/GPTimer_Driver.o
  .debug_macro   0x00000000       0x6a ./Drivers/Peripherals/Src/GPTimer_Driver.o
  .debug_macro   0x00000000      0x1df ./Drivers/Peripherals/Src/GPTimer_Driver.o
- .debug_macro   0x00000000      0x3cf ./Drivers/Peripherals/Src/GPTimer_Driver.o
+ .debug_macro   0x00000000      0x4a1 ./Drivers/Peripherals/Src/GPTimer_Driver.o
  .debug_macro   0x00000000      0x136 ./Drivers/Peripherals/Src/GPTimer_Driver.o
+ .group         0x00000000        0xc ./Drivers/Peripherals/Src/SPI_Driver.o
+ .group         0x00000000        0xc ./Drivers/Peripherals/Src/SPI_Driver.o
+ .group         0x00000000        0xc ./Drivers/Peripherals/Src/SPI_Driver.o
+ .group         0x00000000        0xc ./Drivers/Peripherals/Src/SPI_Driver.o
+ .group         0x00000000        0xc ./Drivers/Peripherals/Src/SPI_Driver.o
+ .group         0x00000000        0xc ./Drivers/Peripherals/Src/SPI_Driver.o
+ .group         0x00000000        0xc ./Drivers/Peripherals/Src/SPI_Driver.o
+ .group         0x00000000        0xc ./Drivers/Peripherals/Src/SPI_Driver.o
+ .group         0x00000000        0xc ./Drivers/Peripherals/Src/SPI_Driver.o
+ .text          0x00000000        0x0 ./Drivers/Peripherals/Src/SPI_Driver.o
+ .data          0x00000000        0x0 ./Drivers/Peripherals/Src/SPI_Driver.o
+ .bss           0x00000000        0x0 ./Drivers/Peripherals/Src/SPI_Driver.o
+ .text.SPI_PCLK_Control
+                0x00000000      0x118 ./Drivers/Peripherals/Src/SPI_Driver.o
+ .text.SPI_Init
+                0x00000000       0xca ./Drivers/Peripherals/Src/SPI_Driver.o
+ .text.SPI_Deinit
+                0x00000000       0xc8 ./Drivers/Peripherals/Src/SPI_Driver.o
+ .text.SPI_SendData
+                0x00000000       0x18 ./Drivers/Peripherals/Src/SPI_Driver.o
+ .text.SPI_ReceiveData
+                0x00000000       0x18 ./Drivers/Peripherals/Src/SPI_Driver.o
+ .text.SPI_IRQ_INT_Config
+                0x00000000       0x1c ./Drivers/Peripherals/Src/SPI_Driver.o
+ .text.SPI_IRQ_Priority_Config
+                0x00000000       0x18 ./Drivers/Peripherals/Src/SPI_Driver.o
+ .text.SPI_IRQHandling
+                0x00000000       0x14 ./Drivers/Peripherals/Src/SPI_Driver.o
+ .debug_info    0x00000000      0x4fb ./Drivers/Peripherals/Src/SPI_Driver.o
+ .debug_abbrev  0x00000000      0x11c ./Drivers/Peripherals/Src/SPI_Driver.o
+ .debug_aranges
+                0x00000000       0x58 ./Drivers/Peripherals/Src/SPI_Driver.o
+ .debug_rnglists
+                0x00000000       0x40 ./Drivers/Peripherals/Src/SPI_Driver.o
+ .debug_macro   0x00000000       0x7b ./Drivers/Peripherals/Src/SPI_Driver.o
+ .debug_macro   0x00000000      0xac0 ./Drivers/Peripherals/Src/SPI_Driver.o
+ .debug_macro   0x00000000       0x22 ./Drivers/Peripherals/Src/SPI_Driver.o
+ .debug_macro   0x00000000       0x8e ./Drivers/Peripherals/Src/SPI_Driver.o
+ .debug_macro   0x00000000       0x51 ./Drivers/Peripherals/Src/SPI_Driver.o
+ .debug_macro   0x00000000      0x103 ./Drivers/Peripherals/Src/SPI_Driver.o
+ .debug_macro   0x00000000       0x6a ./Drivers/Peripherals/Src/SPI_Driver.o
+ .debug_macro   0x00000000      0x1df ./Drivers/Peripherals/Src/SPI_Driver.o
+ .debug_macro   0x00000000      0x4a7 ./Drivers/Peripherals/Src/SPI_Driver.o
+ .debug_macro   0x00000000      0x13c ./Drivers/Peripherals/Src/SPI_Driver.o
+ .debug_line    0x00000000      0x6e3 ./Drivers/Peripherals/Src/SPI_Driver.o
+ .debug_str     0x00000000     0x5b4e ./Drivers/Peripherals/Src/SPI_Driver.o
+ .comment       0x00000000       0x44 ./Drivers/Peripherals/Src/SPI_Driver.o
+ .debug_frame   0x00000000      0x150 ./Drivers/Peripherals/Src/SPI_Driver.o
+ .ARM.attributes
+                0x00000000       0x34 ./Drivers/Peripherals/Src/SPI_Driver.o
  .group         0x00000000        0xc ./Drivers/Peripherals/Src/SYSTICK_Driver.o
  .group         0x00000000        0xc ./Drivers/Peripherals/Src/SYSTICK_Driver.o
  .group         0x00000000        0xc ./Drivers/Peripherals/Src/SYSTICK_Driver.o
@@ -171,10 +221,10 @@ Discarded input sections
  .debug_macro   0x00000000      0x103 ./Drivers/Peripherals/Src/SYSTICK_Driver.o
  .debug_macro   0x00000000       0x6a ./Drivers/Peripherals/Src/SYSTICK_Driver.o
  .debug_macro   0x00000000      0x1df ./Drivers/Peripherals/Src/SYSTICK_Driver.o
- .debug_macro   0x00000000      0x3cf ./Drivers/Peripherals/Src/SYSTICK_Driver.o
+ .debug_macro   0x00000000      0x4a1 ./Drivers/Peripherals/Src/SYSTICK_Driver.o
  .debug_macro   0x00000000       0x1c ./Drivers/Peripherals/Src/SYSTICK_Driver.o
  .debug_line    0x00000000      0x591 ./Drivers/Peripherals/Src/SYSTICK_Driver.o
- .debug_str     0x00000000     0x50f8 ./Drivers/Peripherals/Src/SYSTICK_Driver.o
+ .debug_str     0x00000000     0x54f0 ./Drivers/Peripherals/Src/SYSTICK_Driver.o
  .comment       0x00000000       0x44 ./Drivers/Peripherals/Src/SYSTICK_Driver.o
  .debug_frame   0x00000000       0x38 ./Drivers/Peripherals/Src/SYSTICK_Driver.o
  .ARM.attributes
@@ -210,13 +260,14 @@ Discarded input sections
  .debug_macro   0x00000000      0x103 ./Drivers/Processor/Src/NVIC.o
  .debug_macro   0x00000000       0x6a ./Drivers/Processor/Src/NVIC.o
  .debug_macro   0x00000000      0x1df ./Drivers/Processor/Src/NVIC.o
- .debug_macro   0x00000000      0x3cf ./Drivers/Processor/Src/NVIC.o
+ .debug_macro   0x00000000      0x4a1 ./Drivers/Processor/Src/NVIC.o
  .debug_line    0x00000000      0x61a ./Drivers/Processor/Src/NVIC.o
- .debug_str     0x00000000     0x50d9 ./Drivers/Processor/Src/NVIC.o
+ .debug_str     0x00000000     0x54d1 ./Drivers/Processor/Src/NVIC.o
  .comment       0x00000000       0x44 ./Drivers/Processor/Src/NVIC.o
  .debug_frame   0x00000000       0x88 ./Drivers/Processor/Src/NVIC.o
  .ARM.attributes
                 0x00000000       0x34 ./Drivers/Processor/Src/NVIC.o
+ .group         0x00000000        0xc ./Src/main.o
  .group         0x00000000        0xc ./Src/main.o
  .group         0x00000000        0xc ./Src/main.o
  .group         0x00000000        0xc ./Src/main.o
@@ -256,8 +307,10 @@ Discarded input sections
  .debug_macro   0x00000000      0x103 ./Src/main.o
  .debug_macro   0x00000000       0x6a ./Src/main.o
  .debug_macro   0x00000000      0x1df ./Src/main.o
+ .debug_macro   0x00000000      0x4a7 ./Src/main.o
  .debug_macro   0x00000000      0x136 ./Src/main.o
  .debug_macro   0x00000000       0xa6 ./Src/main.o
+ .debug_macro   0x00000000      0x13c ./Src/main.o
  .group         0x00000000        0xc ./Src/syscalls.o
  .group         0x00000000        0xc ./Src/syscalls.o
  .group         0x00000000        0xc ./Src/syscalls.o
@@ -697,6 +750,7 @@ LOAD C:/ST/STM32CubeIDE_1.10.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
 LOAD C:/ST/STM32CubeIDE_1.10.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.0.200.202406191623/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/crt0.o
 LOAD ./Drivers/Peripherals/Src/GPIO_Driver.o
 LOAD ./Drivers/Peripherals/Src/GPTimer_Driver.o
+LOAD ./Drivers/Peripherals/Src/SPI_Driver.o
 LOAD ./Drivers/Peripherals/Src/SYSTICK_Driver.o
 LOAD ./Drivers/Processor/Src/NVIC.o
 LOAD ./Src/main.o
@@ -1034,7 +1088,7 @@ LOAD C:/ST/STM32CubeIDE_1.10.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  .debug_rnglists
                 0x0000012f       0x19 ./Startup/startup_stm32f411retx.o
 
-.debug_macro    0x00000000     0x24b2
+.debug_macro    0x00000000     0x21b8
  .debug_macro   0x00000000       0x7b ./Drivers/Peripherals/Src/GPIO_Driver.o
  .debug_macro   0x0000007b      0xac0 ./Drivers/Peripherals/Src/GPIO_Driver.o
  .debug_macro   0x00000b3b       0x22 ./Drivers/Peripherals/Src/GPIO_Driver.o
@@ -1043,44 +1097,43 @@ LOAD C:/ST/STM32CubeIDE_1.10.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  .debug_macro   0x00000c3c      0x103 ./Drivers/Peripherals/Src/GPIO_Driver.o
  .debug_macro   0x00000d3f       0x6a ./Drivers/Peripherals/Src/GPIO_Driver.o
  .debug_macro   0x00000da9      0x1df ./Drivers/Peripherals/Src/GPIO_Driver.o
- .debug_macro   0x00000f88      0x3cf ./Drivers/Peripherals/Src/GPIO_Driver.o
- .debug_macro   0x00001357      0x136 ./Drivers/Peripherals/Src/GPIO_Driver.o
- .debug_macro   0x0000148d       0xd4 ./Drivers/Peripherals/Src/GPTimer_Driver.o
- .debug_macro   0x00001561       0xa6 ./Drivers/Peripherals/Src/GPTimer_Driver.o
- .debug_macro   0x00001607      0x167 ./Src/main.o
- .debug_macro   0x0000176e       0x61 ./Src/main.o
- .debug_macro   0x000017cf       0x2a ./Src/main.o
- .debug_macro   0x000017f9       0x43 ./Src/main.o
- .debug_macro   0x0000183c       0x34 ./Src/main.o
- .debug_macro   0x00001870      0x189 ./Src/main.o
- .debug_macro   0x000019f9       0x16 ./Src/main.o
- .debug_macro   0x00001a0f       0x43 ./Src/main.o
- .debug_macro   0x00001a52       0x34 ./Src/main.o
- .debug_macro   0x00001a86       0x10 ./Src/main.o
- .debug_macro   0x00001a96       0x58 ./Src/main.o
- .debug_macro   0x00001aee       0x8e ./Src/main.o
- .debug_macro   0x00001b7c       0x1c ./Src/main.o
- .debug_macro   0x00001b98      0x177 ./Src/main.o
- .debug_macro   0x00001d0f      0x369 ./Src/main.o
- .debug_macro   0x00002078       0x10 ./Src/main.o
- .debug_macro   0x00002088       0x35 ./Src/main.o
- .debug_macro   0x000020bd       0x20 ./Src/main.o
- .debug_macro   0x000020dd      0x3d5 ./Src/main.o
+ .debug_macro   0x00000f88      0x4a1 ./Drivers/Peripherals/Src/GPIO_Driver.o
+ .debug_macro   0x00001429      0x136 ./Drivers/Peripherals/Src/GPIO_Driver.o
+ .debug_macro   0x0000155f       0xd4 ./Drivers/Peripherals/Src/GPTimer_Driver.o
+ .debug_macro   0x00001633       0xa6 ./Drivers/Peripherals/Src/GPTimer_Driver.o
+ .debug_macro   0x000016d9      0x170 ./Src/main.o
+ .debug_macro   0x00001849       0x61 ./Src/main.o
+ .debug_macro   0x000018aa       0x2a ./Src/main.o
+ .debug_macro   0x000018d4       0x43 ./Src/main.o
+ .debug_macro   0x00001917       0x34 ./Src/main.o
+ .debug_macro   0x0000194b      0x189 ./Src/main.o
+ .debug_macro   0x00001ad4       0x16 ./Src/main.o
+ .debug_macro   0x00001aea       0x43 ./Src/main.o
+ .debug_macro   0x00001b2d       0x34 ./Src/main.o
+ .debug_macro   0x00001b61       0x10 ./Src/main.o
+ .debug_macro   0x00001b71       0x58 ./Src/main.o
+ .debug_macro   0x00001bc9       0x8e ./Src/main.o
+ .debug_macro   0x00001c57       0x1c ./Src/main.o
+ .debug_macro   0x00001c73      0x177 ./Src/main.o
+ .debug_macro   0x00001dea      0x369 ./Src/main.o
+ .debug_macro   0x00002153       0x10 ./Src/main.o
+ .debug_macro   0x00002163       0x35 ./Src/main.o
+ .debug_macro   0x00002198       0x20 ./Src/main.o
 
-.debug_line     0x00000000     0x1c46
+.debug_line     0x00000000     0x1c56
  .debug_line    0x00000000      0xbb7 ./Drivers/Peripherals/Src/GPIO_Driver.o
  .debug_line    0x00000bb7      0x90a ./Drivers/Peripherals/Src/GPTimer_Driver.o
- .debug_line    0x000014c1      0x70a ./Src/main.o
- .debug_line    0x00001bcb       0x7b ./Startup/startup_stm32f411retx.o
+ .debug_line    0x000014c1      0x71a ./Src/main.o
+ .debug_line    0x00001bdb       0x7b ./Startup/startup_stm32f411retx.o
 
-.debug_str      0x00000000     0x91b8
- .debug_str     0x00000000     0x5671 ./Drivers/Peripherals/Src/GPIO_Driver.o
-                               0x582a (size before relaxing)
- .debug_str     0x00005671      0x624 ./Drivers/Peripherals/Src/GPTimer_Driver.o
-                               0x5b47 (size before relaxing)
- .debug_str     0x00005c95     0x34e4 ./Src/main.o
-                               0x8d8f (size before relaxing)
- .debug_str     0x00009179       0x3f ./Startup/startup_stm32f411retx.o
+.debug_str      0x00000000     0x99ce
+ .debug_str     0x00000000     0x5a62 ./Drivers/Peripherals/Src/GPIO_Driver.o
+                               0x5c22 (size before relaxing)
+ .debug_str     0x00005a62      0x624 ./Drivers/Peripherals/Src/GPTimer_Driver.o
+                               0x5f3f (size before relaxing)
+ .debug_str     0x00006086     0x3909 ./Src/main.o
+                               0x95ac (size before relaxing)
+ .debug_str     0x0000998f       0x3f ./Startup/startup_stm32f411retx.o
                                  0xad (size before relaxing)
 
 .comment        0x00000000       0x43
