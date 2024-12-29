@@ -112,6 +112,9 @@ void GPIOx_Init(GPIOx_Handle_t *pGPIOHandle){
 	uint8_t temp = 0;
 	uint8_t port_code = 0;
 
+	//Initialize GPIO Peripheral clock
+	GPIOx_PClkControl(pGPIOHandle->pGPIOx_Base, CLK_EN);
+
 	/*Non Interrupt mode configurations*/
 	if(pGPIOHandle->GPIO_PinConfig.GPIOx_PinMode <= GPIO_MODE_ANALOG){
 		//1. Set GPIO Pin Mode

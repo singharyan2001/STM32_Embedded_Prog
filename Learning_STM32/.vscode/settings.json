@@ -2,6 +2,7 @@
     "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
         "gpio_driver.h": "c",
-        "gptimer_driver.h": "c"
+        "gptimer_driver.h": "c",
+        "systick_driver.h": "c"
     }
 }

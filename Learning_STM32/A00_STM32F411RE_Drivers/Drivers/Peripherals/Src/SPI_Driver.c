@@ -59,6 +59,10 @@ void SPI_Init(SPIx_Handle_t *pSPIHandle){
     //Configure the SPI CR1 Register
 	uint32_t tempreg = 0;
 
+	//Initialize SPI Peripheral clock
+	SPI_PCLK_Control(pSPIHandle->pSPIx, CLK_EN);
+
+	//Configure SPI Peripheral
 	//1. Configure SPI Device Mode
 	tempreg |= pSPIHandle->SPIx_Config.SPI_DEVICE_MODE << SPI_CR1_MSTR_BIT;
 
@@ -113,9 +117,20 @@ void SPI_Init(SPIx_Handle_t *pSPIHandle){
 		tempreg &= ~(1 << SPI_CR1_CPHA_BIT);	//Set CPHA
 	}
 
-	//Configure the SPI Peripheral with all configured settings
+	//Configure SPI SSM
+	if(pSPIHandle->SPIx_Config.SPI_SSM == SPI_SSM_ENABLED){
+		//Set SSM bit == 1
+		tempreg |= (1 << SPI_CR1_SSM_BIT);
+		//Set SSI bit == 1 , so NSS pin is pulled high
+	}
+	else{
+		tempreg &= ~(1 << SPI_CR1_SSM_BIT);
+	}
+
+	//Initialize the SPI Peripheral with all configured settings
 	pSPIHandle->pSPIx->SPI_CR1 |= tempreg;
 }
+
 
 void SPI_Deinit(SPI_RegDef_t *pSPIx){
     //SPI Deinitialize function
@@ -161,7 +176,7 @@ void SPI_SendData(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint32_t length){
 	uint32_t len = length;	//Created a local variable to store length data.
 	while(len > 0){
 		//2. Check if Tx buffer is empty? if false, wait and if true, continue.
-		while(pSPIx->SPI_SR & (1 << SPI_SR_TXE_BIT)); //This checks if the TXE bit in the SPI_SR register is set. If it's set, it means the transmit buffer is empty and ready to accept new data.
+		while(!(pSPIx->SPI_SR & (1 << SPI_SR_TXE_BIT))); //This checks if the TXE bit in the SPI_SR register is set. If it's set, it means the transmit buffer is empty and ready to accept new data.
 
 		//3. check if Data frame format is 8 bit or 16 bit, and execute accordingly.
 		if(pSPIx->SPI_CR1 & (1 << SPI_CR1_DFF_BIT)){
@@ -198,7 +213,46 @@ void SPI_SendData(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint32_t length){
  * None
 */
 void SPI_ReceiveData(SPI_RegDef_t *pSPIx, uint8_t *pRxBuffer, uint32_t length){
-    //
+    //1. Check if length is zero? if true, return transmission complete and if false, continue.
+	if(length == 0) return;  // No data to Receive
+
+	// Validate length for 16-bit mode
+    if ((pSPIx->SPI_CR1 & (1 << SPI_CR1_DFF_BIT)) && (length % 2 != 0)) {
+        // Invalid length for 16-bit mode
+        return;
+    }
+
+	if ((pSPIx->SPI_CR1 & (1 << SPI_CR1_DFF_BIT)) && ((uint32_t)pRxBuffer % 2 != 0)) {
+    	// Misaligned buffer for 16-bit mode
+    	return;
+	}
+
+	uint32_t len = length;	//Created a local variable to store length data.
+	while(len > 0){
+		//2. Check if Rx buffer is not empty? if false, wait and if true, continue.
+		// Wait until RXNE flag is set
+		while( !(pSPIx->SPI_SR & (1 << SPI_SR_RXNE_BIT)));
+
+		//3. check if Data frame format is 8 bit or 16 bit, and execute accordingly.
+		if(pSPIx->SPI_CR1 & (1 << SPI_CR1_DFF_BIT)){
+			//DFF is 16 bits format
+			//4. Read 16 bits of data of SPI DR Register and store into pRxBuffer which is typecasted to uint16_t* and increment address by 2 byte and de-increment length by 2.
+			/*
+			 * The typecaste (uint16_t *)pTxBuffer changes the interpretation of pTxBuffer from a pointer to uint8_t type data to a pointer to uint16_t type data.
+			 * The "*" dereferences the pointer, accessing the 16 bit data. i.e. *((uint16_t *)pTxBuffer)
+			*/
+			*((uint16_t *)pRxBuffer) = pSPIx->SPI_DR;		//Read and store 16 bits of data from SPI DR and stores it into *pRxBuffer
+			pRxBuffer += 2;									//Increment address by 2 bytes
+			len -= 2;										//De-Increment length by 2
+		}
+		else{
+			//DFF is 8 bits format
+			//5. Read 8 bit data from SPI DR Register and store into pRxBuffer and increment address by 1 byte and de-increment length by 1.
+			*pRxBuffer = pSPIx->SPI_DR;					//Read 8 bits of data from SPI DR and stores it into *pRxBuffer
+			pRxBuffer++;								//Increment address by 1 byte
+			len--;										//De-Increment length by 1
+		}
+	}
 }
 
 /*SPI Interrupt APIs*/
@@ -215,6 +269,69 @@ void SPI_IRQHandling(SPIx_Handle_t *pSPIHandle){
 }
 
 /*SPI Low Level APIs - Configuration & Control*/
+
+/*
+ * SPI Enable API
+ *
+ * 
+*/
+void SPI_Enable(SPI_RegDef_t *pSPIx){
+	//Enable the SPE Bit in SPI_CR1 Register
+	pSPIx->SPI_CR1 |= (1 << SPI_CR1_SPE_BIT);
+}
+
+
+/*
+ * SPI Disable API
+ *
+ * 
+*/
+void SPI_Disable_blocking(SPI_RegDef_t *pSPIx){
+	//Disable the SPE Bit in SPI_CR1 Register
+	while( pSPIx->SPI_SR & (1 << SPI_SR_BSY_BIT) ){
+		/*
+		 * The code will block here, until the condition is true/valid.
+		 * The condition checks weather the BSY Flag in the status register is raised or not.
+		 * If it is raised, the condtion is true/valid, and it will wait here, until the condition becomes false.
+		 * If the flag is no longer raised, the condition will no longer be true, and will exit the while loop, and
+		 * will procced to execute the SPI Peripheral Disable code.\
+		 * BSY Flag raised basically means the SPI TX buffer is currently busy in transmission.
+		 */
+	}
+	pSPIx->SPI_CR1 &= ~(1 << SPI_CR1_SPE_BIT);
+}
+
+
+/*
+ * SPI SSI Configure API
+ *
+ * 
+*/
+void SPI_SSI_Configure(SPI_RegDef_t *pSPIx, uint8_t EN_DI){
+	if(EN_DI == ENABLE){
+		pSPIx->SPI_CR1 |= (1 << SPI_CR1_SSI_BIT);
+		//We are doing this since this is device is not working in multi master mode.
+	}
+	else{
+		pSPIx->SPI_CR1 &= ~(1 << SPI_CR1_SSI_BIT);
+		//We are doing this since this is device is working in multi master mode.
+	}
+}
+
+/*
+ * SPI SSOE Configure API
+ *
+ * 
+*/
+void SPI_SSOE_Configure(SPI_RegDef_t *pSPIx, uint8_t EN_DI){
+	//
+	if(EN_DI == ENABLE){
+		pSPIx->SPI_CR2 |= (1 << SPI_CR2_SSOE_BIT);
+	}
+	else{
+		pSPIx->SPI_CR2 &= ~(1 << SPI_CR2_SSOE_BIT);
+	}
+}
 
 
 #endif /* PERIPHERALS_SRC_SPI_DRIVER_C_ */

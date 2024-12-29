@@ -115,7 +115,18 @@ void SPI_PCLK_Control(SPI_RegDef_t *pSPIx, uint8_t EN_DI);
 void SPI_Init(SPIx_Handle_t *pSPIHandle);
 void SPI_Deinit(SPI_RegDef_t *pSPIx);
 
-/*SPI Send & bReceive APIs*/
+/*Enable & Disable SPI Peripheral API*/
+void SPI_Enable(SPI_RegDef_t *pSPIx);
+void SPI_Disable_blocking(SPI_RegDef_t *pSPIx);
+
+/*SPI SSI Configure API*/
+void SPI_SSI_Configure(SPI_RegDef_t *pSPIx, uint8_t EN_DI);
+
+/*SPI SSOE Configure API*/
+void SPI_SSOE_Configure(SPI_RegDef_t *pSPIx, uint8_t EN_DI);
+
+
+/*SPI Send & Receive APIs*/
 void SPI_SendData(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint32_t length);
 void SPI_ReceiveData(SPI_RegDef_t *pSPIx, uint8_t *pRxBuffer, uint32_t length);
 
