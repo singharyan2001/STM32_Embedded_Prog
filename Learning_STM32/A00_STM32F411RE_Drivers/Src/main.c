@@ -18,6 +18,7 @@
 
 #include <stdint.h>
 #include <string.h>
+#include <stdio.h>
 
 #include "STM32F411xx.h"
 #include "GPIO_Driver.h"
@@ -52,6 +53,42 @@
  * NSS --> PB12 - CN10 : 16
 */
 
+volatile uint8_t transmit_flag = 0;
+
+void SPI2_GPIOInit(void);
+void SPI2_Init(void);
+
+void SPI_TX_TEST(char *data);
+
+void SPI_RX_TEST(void);
+
+void BUTTON_GPIO_INIT(void);
+
+int main(void)
+{
+	//Create a buffer
+	char user_data[] = "Hello World";
+
+	//Configure & Initialize SPI2 Peripheral
+	SPI2_GPIOInit();
+	SPI2_Init();
+
+	BUTTON_GPIO_INIT();
+
+	printf("Working!!\n");
+
+    /* Loop forever */
+	for(;;){
+		while(GPIO_ReadFromInputPin(GPIOA, GPIO_PIN_0) == 0){
+			transmit_flag = 0;
+			SPI_TX_TEST(user_data);
+			for(int i = 0; i< 5000; i++);
+		}
+		for(int i = 0; i< 5000; i++);
+	}
+}
+
+
 void SPI2_GPIOInit(void){
 	//Create a GPIO Handle and perform configure
 	GPIOx_Handle_t SPIPins;
@@ -60,7 +97,7 @@ void SPI2_GPIOInit(void){
 	SPIPins.GPIO_PinConfig.GPIOx_PinMode = GPIO_MODE_ALTERNATE;
 	SPIPins.GPIO_PinConfig.GPIOx_PinAltFunMode = GPIO_AFR_AF5;
 	SPIPins.GPIO_PinConfig.GPIOx_PinOPType = GPIO_OUTPUT_PUSH_PULL;
-	SPIPins.GPIO_PinConfig.GPIOx_PinSpeed = GPIO_SPEED_FAST;
+	SPIPins.GPIO_PinConfig.GPIOx_PinSpeed = GPIO_SPEED_HIGH;
 	SPIPins.GPIO_PinConfig.GPIOx_PinPUPDControl = GPIO_PUPD_NA;
 
 	//Initialize MOSI Pin
@@ -77,9 +114,9 @@ void SPI2_GPIOInit(void){
 
 	//Initialize NSS
 	SPIPins.GPIO_PinConfig.GPIOx_PinNumber = GPIO_PIN_12;
-	GPIOx_Init(&SPIPins);
 
 	//SPI Pins configured!
+	GPIOx_Init(&SPIPins);
 }
 
 
@@ -90,7 +127,7 @@ void SPI2_Init(void){
 	SPI2_Handle.pSPIx = SPI2;
 	SPI2_Handle.SPIx_Config.SPI_DEVICE_MODE = SPI_DEVICE_MODE_MASTER;
 	SPI2_Handle.SPIx_Config.SPI_BUS_CONFIG = SPI_BUS_CONFIG_FULL_DUPLEX;
-	SPI2_Handle.SPIx_Config.SPI_SCLK_SPEED = SPI_BAUDRATE_DIV2;
+	SPI2_Handle.SPIx_Config.SPI_SCLK_SPEED = SPI_BAUDRATE_DIV8;
 	SPI2_Handle.SPIx_Config.SPI_DFF = SPI_DFF_8BIT;
 
 	//Configure to Mode 0
@@ -105,15 +142,7 @@ void SPI2_Init(void){
 }
 
 
-int main(void)
-{
-	//Create a buffer
-	char user_data[] = "Hello World";
-
-	//Configure & Initialize SPI2 Peripheral
-	SPI2_GPIOInit();
-	SPI2_Init();
-
+void SPI_TX_TEST(char *data){
 	//Configure SSI Bit
 	SPI_SSI_Configure(SPI2, ENABLE);
 	//or
@@ -128,20 +157,42 @@ int main(void)
 	SPI_Enable(SPI2);
 
 	//Test SPI Send data API
-	SPI_SendData(SPI2, (uint8_t *)user_data, strlen(user_data));
+	SPI_SendData(SPI2, (uint8_t *)data, strlen(data));
 
 	//After transmission, we close or disable the SPI Peripheral
 	//Disable the SPI2 Peripheral
 	SPI_Disable_blocking(SPI2);
-
-    /* Loop forever */
-	for(;;){
-		//
-	}
 }
 
 
 
+void SPI_RX_TEST(void){
+	//
+}
+
+
+void BUTTON_GPIO_INIT(void){
+	//Create handle
+	GPIOx_Handle_t GPIOHandle;
+	memset(&GPIOHandle, 0, sizeof(GPIOHandle));	//Clear
+	GPIOHandle.pGPIOx_Base = GPIOA;
+	GPIOHandle.GPIO_PinConfig.GPIOx_PinNumber = GPIO_PIN_0;
+	GPIOHandle.GPIO_PinConfig.GPIOx_PinMode = GPIO_MODE_INPUT;
+	GPIOHandle.GPIO_PinConfig.GPIOx_PinPUPDControl = GPIO_PUPD_PULL_UP;
+	//Initialize
+	GPIOx_Init(&GPIOHandle);
+}
+
+void EXTI0_IRQHandler(){
+	//Handle debouncing
+//	for(int i=0; i < 50000; i++);
+
+	//Clear the Interrupt
+	GPIO_IRQHandling(GPIO_PIN_0);
+
+	//Raise Flag
+	transmit_flag = 1;
+}
 
 
 
