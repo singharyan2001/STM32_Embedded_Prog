@@ -64,14 +64,29 @@ void SPI_RX_TEST(void);
 
 void BUTTON_GPIO_INIT(void);
 
+void delay_init(void);
+
+void delay_ms(uint32_t delay);
+
+extern void initialise_monitor_handles(void);
+
+
 int main(void)
 {
+	/* functions to run for OpenOCD Debugging */
+	initialise_monitor_handles();
+
+	/*------------------------------------------*/
 	//Create a buffer
 	char user_data[] = "Hello World";
+
+	printf("Working!!\n");
 
 	//Configure & Initialize SPI2 Peripheral
 	SPI2_GPIOInit();
 	SPI2_Init();
+
+	TIMx_Delay_ms_Init(TIM2);
 
 	BUTTON_GPIO_INIT();
 
@@ -82,9 +97,10 @@ int main(void)
 		while(GPIO_ReadFromInputPin(GPIOA, GPIO_PIN_0) == 0){
 			transmit_flag = 0;
 			SPI_TX_TEST(user_data);
-			for(int i = 0; i< 5000; i++);
+			printf("USER Data sent! Through SPI Interface!!\n");
+			TIMx_Delay_ms(TIM2, 1000);	//1000ms or 1 second
 		}
-		for(int i = 0; i< 5000; i++);
+		TIMx_Delay_ms(TIM2, 100);	//100ms
 	}
 }
 
@@ -182,6 +198,9 @@ void BUTTON_GPIO_INIT(void){
 	//Initialize
 	GPIOx_Init(&GPIOHandle);
 }
+
+
+
 
 void EXTI0_IRQHandler(){
 	//Handle debouncing
