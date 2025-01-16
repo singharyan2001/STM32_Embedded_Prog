@@ -1,5 +1,5 @@
 ../Src/main.c:77:5:main	1
-../Src/main.c:131:6:SPI2_GPIOInit	1
-../Src/main.c:161:6:SPI2_Init_Slave	1
-../Src/main.c:185:6:SPI_TX_TEST	1
-../Src/main.c:207:6:SPI_RX_TEST	1
+../Src/main.c:126:6:SPI2_GPIOInit	1
+../Src/main.c:156:6:SPI2_Init_Slave	1
+../Src/main.c:180:6:SPI_TX_TEST	1
+../Src/main.c:202:6:SPI_RX_TEST	1

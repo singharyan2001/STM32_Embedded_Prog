@@ -339,7 +339,7 @@ void SPI_SSOE_Configure(SPI_RegDef_t *pSPIx, uint8_t EN_DI){
 
 //test function
 
-void SPI_FullDuplex_Master(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, volatile uint8_t *pRxBuffer, uint32_t length){
+void SPI_FullDuplex_Master(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint8_t *pRxBuffer, uint32_t length){
     while (length > 0) {
         // Wait for TXE flag (Transmit Buffer Empty)
         while (!(pSPIx->SPI_SR & (1 << SPI_SR_TXE_BIT)));
@@ -363,8 +363,12 @@ void SPI_FullDuplex_Master(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, volatile uin
     while (pSPIx->SPI_SR & (1 << SPI_SR_BSY_BIT));
 }
 
-void SPI_FullDuplex_Slave(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, volatile uint8_t *pRxBuffer, uint32_t length){
-    while (length > 0) {
+void SPI_FullDuplex_Slave(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint8_t *pRxBuffer, uint32_t length){
+	// Wait for TXE flag (Transmit Buffer Empty) //set the first bit
+	while (!(pSPIx->SPI_SR & (1 << SPI_SR_TXE_BIT)));
+	pSPIx->SPI_DR = *pTxBuffer;
+	length--;
+	while (length > 0) {
         // Wait for RXNE flag (Receive Buffer Not Empty)
         while( !(pSPIx->SPI_SR & (1 << SPI_SR_RXNE_BIT)));
 
@@ -385,6 +389,20 @@ void SPI_FullDuplex_Slave(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, volatile uint
 
     // Wait for SPI busy flag (BSY) to clear (ensure last transfer is complete)
     while (pSPIx->SPI_SR & (1 << SPI_SR_BSY_BIT));
+}
+
+void SPI_Set_TX_Buffer(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint32_t length){
+	// Wait for TXE flag (Transmit Buffer Empty)
+	while (!(pSPIx->SPI_SR & (1 << SPI_SR_TXE_BIT)));	//This could block infinitely!
+
+	while (length > 0) {
+		// Write data to SPI_DR (Transmit Data Register)
+		pSPIx->SPI_DR = *pTxBuffer;
+
+		// Increment buffer pointers and decrement length
+		pTxBuffer++;
+		length--;
+	}
 }
 
 

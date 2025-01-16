@@ -12,3 +12,4 @@
 ../Drivers/Peripherals/Src/SPI_Driver.c:329:6:SPI_SSOE_Configure	16	static
 ../Drivers/Peripherals/Src/SPI_Driver.c:342:6:SPI_FullDuplex_Master	24	static
 ../Drivers/Peripherals/Src/SPI_Driver.c:366:6:SPI_FullDuplex_Slave	24	static
+../Drivers/Peripherals/Src/SPI_Driver.c:394:6:SPI_Set_TX_Buffer	24	static

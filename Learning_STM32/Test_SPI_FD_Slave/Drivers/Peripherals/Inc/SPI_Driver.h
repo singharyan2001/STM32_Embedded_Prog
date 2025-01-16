@@ -136,7 +136,10 @@ void SPI_SSI_Configure(SPI_RegDef_t *pSPIx, uint8_t EN_DI);
 void SPI_SSOE_Configure(SPI_RegDef_t *pSPIx, uint8_t EN_DI);
 
 //Test API's
-void SPI_FullDuplex_Master(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, volatile uint8_t *pRxBuffer, uint32_t length);
-void SPI_FullDuplex_Slave(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, volatile uint8_t *pRxBuffer, uint32_t length);
+void SPI_FullDuplex_Master(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint8_t *pRxBuffer, uint32_t length);
+void SPI_FullDuplex_Slave(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint8_t *pRxBuffer, uint32_t length);
+
+void SPI_Set_TX_Buffer(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint32_t length);
+
 
 #endif /* PERIPHERALS_INC_SPI_DRIVER_H_ */

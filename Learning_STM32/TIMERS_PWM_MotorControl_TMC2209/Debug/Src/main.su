@@ -1,0 +1,5 @@
+../Src/main.c:47:5:main	8	static
+../Src/main.c:86:6:motor_control_init	56	static
+../Src/main.c:145:6:motor_control_execute	8	static
+../Src/main.c:168:6:BUTTON_GPIO_INIT	24	static
+../Src/main.c:185:6:EXTI0_IRQHandler	8	static

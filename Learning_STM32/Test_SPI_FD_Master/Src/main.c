@@ -100,7 +100,7 @@ int main(void)
 
 	TIMx_Delay_ms_Init(TIM2);
 
-	BUTTON_GPIO_INIT(); //Commented when device is in slave mode
+	BUTTON_GPIO_INIT(); //Commented when device is in slave modeWWWW
 	
 	/* Loop forever */
 	/*Master flag loop code*/

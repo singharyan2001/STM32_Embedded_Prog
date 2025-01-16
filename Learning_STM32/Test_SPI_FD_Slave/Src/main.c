@@ -84,6 +84,7 @@ int main(void)
 	//char user_data[BUFFER_SIZE] = "Hello there";	  	//slave mode
 	data_t data_tx = {50, 70, 80};
 
+	data_t config_tx = {10,20,30};
 
 	/* Creating an 11 bit RX buffer */
 	//char rx_buffer[BUFFER_SIZE] = {0};  // Initialize with zeros
@@ -91,25 +92,17 @@ int main(void)
 
 	printf("SWV printf Debugging Initialized\n");
 
+	printf("SIze of data: %d and type size: %d\n", sizeof(data_tx), sizeof(data_t));
+
 	//Configure & Initialize SPI2 Peripheral
 	SPI2_GPIOInit();
 
-
 	SPI2_Init_Slave(); 			//for slave mode
-
 
 	TIMx_Delay_ms_Init(TIM2);
 
-	// #if SPI_MASTER_MODE
-	// #else
-	// 	SPI_SSOE_Configure(SPI2, ENABLE);
-	// 	SPI_Enable(SPI2);
-	// #endif
-
-	// #if SPI_MASTER_MODE
-	// #else
-	// 	SPI_SendData(SPI2, (uint8_t *)user_data, BUFFER_SIZE);	//Set SPI TX Buffer
-	// #endif
+	//Set TX buffer for the first time
+	SPI_Set_TX_Buffer(SPI2, (uint8_t *)&config_tx, sizeof(data_t));
 	
 	SPI_SSOE_Configure(SPI2, ENABLE);
 	SPI_Enable(SPI2);
@@ -122,6 +115,8 @@ int main(void)
 		printf("Received data: %d\n", data_rx.a);
 		printf("Received data: %d\n", data_rx.b);
 		printf("Received data: %d\n", data_rx.c);
+		//now set next RX Buffer
+		//SPI_Set_TX_Buffer(SPI2, (uint8_t *)&data_tx, sizeof(data_t));
 	}
 	
 }

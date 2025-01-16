@@ -11,4 +11,5 @@
 ../Drivers/Peripherals/Src/SPI_Driver.c:313:6:SPI_SSI_Configure	2
 ../Drivers/Peripherals/Src/SPI_Driver.c:329:6:SPI_SSOE_Configure	2
 ../Drivers/Peripherals/Src/SPI_Driver.c:342:6:SPI_FullDuplex_Master	5
-../Drivers/Peripherals/Src/SPI_Driver.c:366:6:SPI_FullDuplex_Slave	5
+../Drivers/Peripherals/Src/SPI_Driver.c:366:6:SPI_FullDuplex_Slave	6
+../Drivers/Peripherals/Src/SPI_Driver.c:394:6:SPI_Set_TX_Buffer	3
