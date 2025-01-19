@@ -30,13 +30,48 @@
 //Timer Status Register
 #define TIM_SR_UIF					0
 
-//Timer Capture/Compare Mode Register - CCMR
+//Timer Capture/Compare Mode Register - CCMR 1&2
+//OUTPUT CAPTURE
+//TIMER CCMR1 Register
+#define TIM_CCMR1_CC1S				0
+#define TIM_CCMR1_OC1FE				2
 #define TIM_CCMR1_OC1PE				3
 #define TIM_CCMR1_OC1M				4
+#define TIM_CCMR1_OC1CE				7
+#define TIM_CCMR1_CC2S				8
+#define TIM_CCMR1_OC2FE				10
+#define TIM_CCMR1_OC2PE				11
+#define TIM_CCMR1_OC2M				12
+#define TIM_CCMR1_OC2CE				15
+
+//TIMER CCMR2 Register
+#define TIM_CCMR2_CC3S				0
+#define TIM_CCMR2_OC3FE				2
+#define TIM_CCMR1_OC3PE				3
+#define TIM_CCMR1_OC3M				4
+#define TIM_CCMR1_OC3CE				7
+#define TIM_CCMR1_CC4S				8
+#define TIM_CCMR1_OC4FE				10
+#define TIM_CCMR1_OC4PE				11
+#define TIM_CCMR1_OC4M				12
+#define TIM_CCMR1_OC4CE				15
+
+//INPUT CAPTURE
+
 
 //Timer Capture/Compare Enable Register - CCER
 #define TIM_CCER_CC1E				0
 #define TIM_CCER_CC1P				1
+#define TIM_CCER_CC1NP				3
+#define TIM_CCER_CC2E				4
+#define TIM_CCER_CC2P				5
+#define TIM_CCER_CC2NP				7
+#define TIM_CCER_CC3E				8
+#define TIM_CCER_CC3P				9
+#define TIM_CCER_CC3NP				11
+#define TIM_CCER_CC4E				8
+#define TIM_CCER_CC4P				9
+#define TIM_CCER_CC4NP				11
 
 /*
  * General Macros
@@ -70,24 +105,24 @@
  */
 typedef struct {
 	TIM_RegDef_t *TIMx;
-	uint32_t System_frequency;		// System frequency, default 16MHz
-	uint32_t Timer_frequency;	  	// TIMER frequency ? 1Hz, 1KHz, 1MHz
-    uint32_t Prescaler;				// Timer prescaler value
-    uint32_t delay;         		// Auto-reload value
-    uint8_t Mode;         			// Timer mode (e.g., up-counter, down-counter)
-    uint8_t Interrupt;    			// Enable/Disable interrupt
-    uint8_t IRQ_No;
+	uint32_t system_frequency;		// System frequency, default 16MHz
+	uint32_t timer_frequency;	  	// TIMER frequency ? 1Hz, 1KHz, 1MHz
+    uint32_t prescaler;				// Timer prescaler value
+    uint32_t desired_delay;         // Auto-reload value
+    uint8_t timer_mode;         			// Timer mode (e.g., up-counter, down-counter)
+    uint8_t interrupt;    			// Enable/Disable interrupt
+    uint8_t irq_no;					// Timer peripheral - irq number
 }TIMx_Config_t;
 
 
 typedef struct{
-	uint8_t PWM_MODE;
-	uint8_t PWM_Channel;
-	uint8_t PWM_OC_Preload_Enable;
-	uint8_t PWM_Polarity;
-	uint8_t PWM_CH_Polarity;
-	uint8_t PWM_CH_Enable;
-	uint32_t PWM_DutyCycle;
+	uint8_t pwm_mode;
+	uint8_t pwm_channel;
+	uint8_t pwm_output_compare_preload_enable;
+	uint8_t pwm_polarity;
+	uint8_t pwm_channel_polarity;
+	uint8_t pwm_channel_enable;
+	uint32_t pwm_duty_cycle;
 }TIMx_PWMConfig_t;
 
 
@@ -123,13 +158,13 @@ void TIMx_PWM_Init(TIMx_Config_t *TIMConfig, TIMx_PWMConfig_t *PWMConfig);
 
 void TIMx_PWM_SetAltFunMode(GPIOx_RegDef_t *pGPIOx_Base, uint8_t GPIO_Pin, uint8_t Altfun);
 
-void TIMx_PWM_SetMode(TIM_RegDef_t *TIMx, uint8_t pwm_mode);
-void TIMx_PWM_SetOCPreload(TIM_RegDef_t *TIMx, uint8_t en);
+void TIMx_PWM_SetMode(TIM_RegDef_t *TIMx, uint8_t pwm_mode, uint8_t pwm_channel);
+void TIMx_PWM_SetOCPreload(TIM_RegDef_t *TIMx, uint8_t pwm_channel, uint8_t en);
 
-void TIMx_PWM_SetPolarity(TIM_RegDef_t *TIMx, uint8_t polarity, uint8_t channel_polarity);
-void TIMx_PWM_EnableOutputChannel(TIM_RegDef_t *TIMx, uint8_t channel_en);
+void TIMx_PWM_SetChannelPolarity(TIM_RegDef_t *TIMx, uint8_t pwm_channel, uint8_t channel_polarity);
+void TIMx_PWM_EnableOutputChannel(TIM_RegDef_t *TIMx, uint8_t pwm_channel, uint8_t channel_en);
 
-void TIMx_PWM_SetDutyCycle(TIM_RegDef_t *TIMx, uint32_t duty_cycle, uint8_t channel);
+void TIMx_PWM_SetDutyCycle(TIM_RegDef_t *TIMx, uint32_t duty_cycle, uint8_t pwm_channel);
 
 void TIMx_PWM_Start(TIM_RegDef_t *TIMx);
 void TIMx_PWM_Stop(TIM_RegDef_t *TIMx);
